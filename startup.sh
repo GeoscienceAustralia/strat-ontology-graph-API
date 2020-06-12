@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-source ./common.sh
-
 if [ -n "$1" ]
 then
     if [ "$1" == "--remote-build" ]
