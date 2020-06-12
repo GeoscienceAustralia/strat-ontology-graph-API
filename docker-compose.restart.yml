@@ -1,0 +1,6 @@
+version: "3.7"
+
+#This file simply add the restart option to the graphcache service
+services:
+    graphcache:
+        restart: unless-stopped
