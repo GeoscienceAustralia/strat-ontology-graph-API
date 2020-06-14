@@ -7,14 +7,19 @@ More to come.
 ## Geometry Data Service
 
 ```
-$ docker-compose -f docker-compose.gds.yml up -d
+$ docker-compose -f docker-compose.gds.yml up -d --build
 ```
 
 Add your spatial layers in `/gds/load_spatial_data/` or 
 configure and modify `gds/load_spatial_data/entrypoint.sh`
 to download your spatial layers and load it into PostGIS.
 
-The current GDS is configured to load countries of the world dataset.
+The current GDS is configured to load the Strat Relations Geojson dataset.
+
+To bring down the GDS, run the following:
+```
+$ docker-compose -f docker-compose.gds.yml down -v 
+```
 
 ### Environment variables
 
