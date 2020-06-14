@@ -1,6 +1,6 @@
 drop materialized view if exists combined_geoms;
 create materialized view combined_geoms as (
-	    select ISO_A2 as id, geom_3577 as geom, 'ne_10m_admin_0_countries' as dataset from ne_10m_admin_0_countries
+	    select STRATNO as id, geom_3577 as geom, 'strat' as dataset from strat
 );
 
 
