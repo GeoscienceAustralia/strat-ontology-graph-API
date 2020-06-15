@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+    graphcache:
+        image: csiroenvinf/graphdb:8.10
+        environment: 
+            - GRAPHDB_HOME
+            - GRAPHDB_SOURCE
+            - SKIP_DOWNLOAD
+            - FORCE_REFRESH
+            - GDB_HEAP_SIZE=${GDB_HEAP_SIZE:-1g}
+        volumes:
+            - "/tmp:/tmp"
+            - "graphdb_data:${GRAPHDB_HOME}"
+            - "./strat_graph_data:${GRAPHDB_SOURCE}"
+            # uncomment the following line for custom downloads for remote-build
+            #- "./custom-download-data.sh:/app/download-data.sh"
+        ports:
+            - "${PORT:-7200}:7200"
+        #command: "tail -f /dev/null"
+
+volumes:
+    graphdb_data:
+    data_cache:
