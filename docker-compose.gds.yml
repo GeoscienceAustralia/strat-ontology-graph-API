@@ -1,0 +1,65 @@
+version: "3.7"
+services:
+  gds:
+    image: csiroenvinf/geometry-data-service:latest
+    environment:
+      #edit these to point to the right Postgis DB
+      - "GSDB_DBNAME=${GSDB_DBNAME:-gis}"
+      - "GSDB_HOSTNAME=${GSDB_HOSTNAME:-db}"
+      - "GSDB_PORT=${GSDB_PORT:-5432}"
+      - "GSDB_USER=${GSDB_USER:-jon}"
+      - "GSDB_PASS=${GSDB_PASS:-jon}"
+      - "GSDB_CLIENT_MAX_CONN_POOL=${GSDB_CLIENT_MAX_CONN_POOL:-30}"
+    volumes:
+      - type: bind
+        source: ${PWD}/gds/gds_theme/page_index.html
+        target: /app/view/templates/page_index.html
+#     - type: bind
+#       source: ${PWD}/gds_theme/css
+#       target: /app/view/static/css
+      - type: bind
+        source: ${PWD}/gds/load_spatial_data/wait-for-it.sh
+        target: /wait-for-it.sh
+    ports:
+     - "${GDS_PORT:-3000}:3000"
+    command: /wait-for-it.sh db:5432 -- python ./app.py
+
+  db:
+    image: kartoza/postgis:12.0
+    volumes:
+      - postgis-data:/var/lib/postgresql
+    environment:
+      # If you need to create multiple database you can add coma separated databases eg gis,data
+      - "POSTGRES_DBNAME=${POSTGRES_DBNAME:-gis}"
+      - "POSTGRES_USER=${POSTGRES_USER:-jon}"
+      - "POSTGRES_PASS=${POSTGRES_PASS:-jon}"
+      - "ALLOW_IP_RANGE=0.0.0.0/0"
+      - 'EXTRA_CONF=max_connections = 1000\nshared_buffers = 150MB\nidle_in_transaction_session_timeout = 5min'
+      # Add extensions you need to be enabled by default in the DB. Default are the three specified below
+      - "POSTGRES_MULTIPLE_EXTENSIONS=${POSTGRES_MULTIPLE_EXTENSIONS:-postgis,hstore,postgis_topology}"
+    ports:
+      - "${POSTGIS_EXPOSED_PORT:-25432}:5432"
+
+  spatialloader:
+      build: ./gds/load_spatial_data
+      environment:
+        #edit these to point to the right Postgis DB
+        - "PG_DBNAME=${GSDB_DBNAME:-gis}"
+        - "PG_HOSTNAME=${GSDB_HOSTNAME:-db}"
+        - "PG_PORT=${GSDB_PORT:-5432}"
+        - "PG_USER=${GSDB_USER:-jon}"
+        - "PG_PASS=${GSDB_PASS:-jon}"
+      volumes:
+        - type: bind
+          source: ${PWD}/gds/load_spatial_data/wait-for-it.sh
+          target: /wait-for-it.sh
+        - type: bind
+          source: ${PWD}/gds/load_spatial_data/init.sh
+          target: /init.sh
+      command: sh -c "/init.sh"
+      #command: tail -f /dev/null
+
+
+volumes:
+   postgis-data:
+

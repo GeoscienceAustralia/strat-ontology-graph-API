@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Geometry Data Service</h1>    
+    <h2>Starting points</h2>
+    <h3>Geometry Register</h3>
+    <ul>
+        <li> <a href="{{ request.host_url }}geometry/">Register of Geometries</a> </li>
+        <li> <a href="{{ request.host_url }}dataset/">Register of Datasets</a> </li>
+    </ul>
+   
+    <h3>Example Search endpoints</h3>
+    <p>Find geometries by point/lat-long</p>
+    <ul>
+        <li> <a href="{{ request.host_url }}search/latlng/142.111,-32.1231">Point(142.111,-32.1231)</a> (note: default is 4326/WGS84) </li>
+        <li> <a href="{{ request.host_url }}search/latlng/16615575.46,-4215695.740446?crs=3857">Point(16615575.46,-4215695.740446) with Spatial Reference ID 3857</a> (i.e. EPSG:3857 WGS 84 / Pseudo-Mercator)</li>
+    </ul>
+
+
+    
+    <h2>More information</h2>
+    <p>See the <a href="/about">About Page</a> for more information.</p>
+    <p>See <a href="/api/doc">/api/doc</a> for the OpenAPI description.</p>
+
+
+{% endblock %}
