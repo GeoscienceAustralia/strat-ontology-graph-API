@@ -1,0 +1,380 @@
+# baseURI: http://pid.geoscience.ga.gov.au/def/stratname
+# imports: file:///C:/Users/cox075/dev/cache-external/schema.ttl
+# imports: http://linked.data.gov.au/def/geox
+# imports: http://purl.org/dc/elements/1.1/
+# imports: http://resource.geosciml.org/ontology/timescale/gts
+# imports: http://www.opengis.net/ont/geosparql
+# prefix: strat
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix lith: <http://pid.geoscience.ga.gov.au/def/stratname/lithology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdo: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix strat: <http://pid.geoscience.ga.gov.au/def/stratname#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://pid.geoscience.ga.gov.au/def/stratname>
+  a owl:Ontology ;
+  dcterms:created "2020-06-15"^^xsd:date ;
+  dcterms:creator <https://orcid.org/0000-0002-3884-3420> ;
+  dcterms:description "An ontology for the Australian Stratnames dataset, with preliminary alignment to the Geological Timescale Ontology" ;
+  dcterms:modified "2020-06-15"^^xsd:date ;
+  dcterms:title "Stratnames ontology" ;
+  rdfs:seeAlso <https://www.ga.gov.au/data-pubs/datastandards/stratigraphic-units> ;
+  owl:imports <file:///C:/Users/cox075/dev/cache-external/schema.ttl> ;
+  owl:imports <http://linked.data.gov.au/def/geox> ;
+  owl:imports <http://purl.org/dc/elements/1.1/> ;
+  owl:imports <http://resource.geosciml.org/ontology/timescale/gts> ;
+  owl:imports <http://www.opengis.net/ont/geosparql> ;
+.
+strat:Boundary
+  a owl:Class ;
+  rdfs:label "Stratigraphic boundary"@en ;
+  rdfs:subClassOf strat:Entity ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:allValuesFrom strat:Point ;
+      owl:onProperty strat:stratotype ;
+    ] ;
+.
+strat:Entity
+  a owl:Class ;
+  rdfs:label "Stratigraphic entity"@en ;
+  rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ;
+.
+strat:Lithology-group
+  a owl:Class ;
+  rdfs:label "Lithology group"@en ;
+  rdfs:subClassOf skos:Concept ;
+.
+strat:Point
+  a owl:Class ;
+  rdfs:comment "Point or level within a section through a continuous sequence of rocks (which is representative of a stratigraphic boundary?)"@en ;
+  rdfs:label "Stratigraphic point"@en ;
+  rdfs:subClassOf strat:Site ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:onProperty strat:within ;
+      owl:someValuesFrom strat:Section ;
+    ] ;
+.
+strat:Section
+  a owl:Class ;
+  rdfs:comment "Outcrop showing a continuous sequence of rocks (which is representative of a stratigraphic unit?)"@en ;
+  rdfs:label "Stratigraphic section"@en ;
+  rdfs:subClassOf strat:Site ;
+.
+strat:Site
+  a owl:Class ;
+  rdfs:label "Geological site "@en ;
+  rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ;
+.
+strat:Unit
+  a owl:Class ;
+  rdfs:label "Stratigraphic unit"@en ;
+  rdfs:subClassOf strat:Entity ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:allValuesFrom strat:Lithology-group ;
+      owl:onProperty strat:lithology ;
+    ] ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:allValuesFrom strat:Section ;
+      owl:onProperty strat:stratotype ;
+    ] ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty dcterms:identifier ;
+    ] ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty dcterms:title ;
+    ] ;
+.
+strat:age
+  a owl:ObjectProperty ;
+  rdfs:domain strat:Entity ;
+  rdfs:label "age of stratigrpahic entity "@en ;
+  rdfs:subPropertyOf <http://www.w3.org/2006/time#hasTime> ;
+.
+strat:bottomAge
+  a owl:ObjectProperty ;
+  rdfs:domain strat:Unit ;
+  rdfs:label "Age of base of unit"@en ;
+  rdfs:subPropertyOf <http://www.w3.org/2006/time#hasTime> ;
+.
+strat:contains
+  a owl:ObjectProperty ;
+  rdfs:label "contains"@en ;
+.
+strat:correlatesWith
+  a owl:ObjectProperty ;
+  rdfs:comment "This property points from a geologic feature or event to a geochronologic element" ;
+  rdfs:label "correlating boundary or era" ;
+  rdfs:range [
+      a owl:Class ;
+      owl:unionOf (
+          <http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary>
+          <http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra>
+        ) ;
+    ] ;
+.
+strat:holostratotype
+  a owl:ObjectProperty ;
+  rdfs:label "Holostratotype"@en ;
+  rdfs:subPropertyOf strat:stratotype ;
+  skos:definition "the original stratotype designated by the original author at the time of proposing a stratigraphic unit or boundary" ;
+.
+strat:hypostratotype
+  a owl:ObjectProperty ;
+  rdfs:label "Hypostratotype "@en ;
+  rdfs:subPropertyOf strat:stratotype ;
+  skos:definition "a stratotype proposed after the original designation of the holostratotype (and parastratotype) in order to extend knowledge of the unit or boundary to other geographic areas. It is always subordinate to the holostratotype" ;
+.
+strat:lectostratotype
+  a owl:ObjectProperty ;
+  rdfs:label "Lectostratotype "@en ;
+  rdfs:subPropertyOf strat:stratotype ;
+  skos:definition "a stratotype for a previously described stratigraphic unit selected later in the absence of an adequately designated original stratotype (holostratotype)" ;
+.
+strat:lithology
+  a owl:ObjectProperty ;
+  rdfs:domain strat:Unit ;
+  rdfs:label "characteristic lithology"@en ;
+.
+strat:manifestedBy
+  a owl:ObjectProperty ;
+  rdfs:comment "This property points from a geochronologic element to a geologic feature which shows characteristics associated with the event associated with the boundary or era" ;
+  rdfs:domain [
+      a owl:Class ;
+      owl:unionOf (
+          <http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary>
+          <http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra>
+        ) ;
+    ] ;
+  rdfs:label "geologic manifestation" ;
+  owl:inverseOf strat:correlatesWith ;
+.
+strat:neostratotype
+  a owl:ObjectProperty ;
+  rdfs:label "Neostratotype "@en ;
+  rdfs:subPropertyOf strat:stratotype ;
+  skos:definition "a new stratotype selected to replace an older one which has been destroyed, covered, or otherwise made inaccessible" ;
+.
+strat:parastratotype
+  a owl:ObjectProperty ;
+  rdfs:label "Parastratotype "@en ;
+  rdfs:subPropertyOf strat:stratotype ;
+  skos:definition "a supplementary stratotype used in the original definition by the original author to illustrate the diversity or heterogeneity of the defined stratigraphic unit or some critical feature not evident or exposed in the holostratotype" ;
+.
+strat:stratotype
+  a owl:ObjectProperty ;
+  dcterms:source "Salvador, A (Editor) 1994, International Stratigraphic Guide: A guide to stratigraphic classification, terminology, and procedure. 2nd edition. International Union of Geological Sciences and the Geological Society of America, Boulder, Colorado." ;
+  rdfs:domain strat:Entity ;
+  rdfs:label "type point or section"@en ;
+  rdfs:range strat:Site ;
+  rdfs:seeAlso <https://www.ga.gov.au/data-pubs/datastandards/stratigraphic-units/stratotypes> ;
+  rdfs:subPropertyOf strat:manifestedBy ;
+.
+strat:topAge
+  a owl:ObjectProperty ;
+  rdfs:domain strat:Unit ;
+  rdfs:label "Age of top of unit"@en ;
+  rdfs:subPropertyOf <http://www.w3.org/2006/time#hasTime> ;
+.
+strat:within
+  a owl:ObjectProperty ;
+  rdfs:label "is within "@en ;
+.
+lith:acid_igneous_rock
+  a strat:Lithology-group ;
+  rdfs:label "acid igneous rock" ;
+.
+lith:acid_intrusive_rock
+  a strat:Lithology-group ;
+  rdfs:label "acid intrusive rock" ;
+.
+lith:acid_volcanic_rock
+  a strat:Lithology-group ;
+  rdfs:label "acid volcanic rock" ;
+  rdfs:label "acid volcanic rock"@en ;
+.
+lith:basic_igneous_rock
+  a strat:Lithology-group ;
+  rdfs:label "basic igneous rock" ;
+.
+lith:basic_intrusive_rock
+  a strat:Lithology-group ;
+  rdfs:label "basic intrusive rock" ;
+.
+lith:basic_volcanic_rock
+  a strat:Lithology-group ;
+  rdfs:label "basic volcanic rock" ;
+.
+lith:biogenic_silica_sedimentary_rock
+  a strat:Lithology-group ;
+  rdfs:label "biogenic silica sedimentary rock" ;
+.
+lith:carbonate_sedimentary_rock
+  a strat:Lithology-group ;
+  rdfs:label "carbonate sedimentary rock" ;
+.
+lith:exotic_composition_igneous_rock
+  a strat:Lithology-group ;
+  rdfs:label "exotic composition igneous rock" ;
+.
+lith:fine_grained_siliciclastic_rock
+  a strat:Lithology-group ;
+  rdfs:label "fine grained siliciclastic rock" ;
+.
+lith:high_grade_metamorphic_rock
+  a strat:Lithology-group ;
+  rdfs:label "high grade metamorphic rock" ;
+.
+lith:igneous_intrusive_rock
+  a strat:Lithology-group ;
+  rdfs:label "igneous intrusive rock" ;
+.
+lith:igneous_rock
+  a strat:Lithology-group ;
+  rdfs:label "igneous rock" ;
+.
+lith:igneous_volcanic_rock
+  a strat:Lithology-group ;
+  rdfs:label "igneous volcanic rock" ;
+.
+lith:intermediate_intrusive_rock
+  a strat:Lithology-group ;
+  rdfs:label "intermediate intrusive rock" ;
+.
+lith:intermediate_volcanic_rock
+  a strat:Lithology-group ;
+  rdfs:label "intermediate volcanic rock" ;
+.
+lith:low-intermediate_grade_metamorphic_rock
+  a strat:Lithology-group ;
+  rdfs:label "low-intermediate grade metamorphic rock" ;
+.
+lith:medium-coarse_grained_siliciclastic_rock
+  a strat:Lithology-group ;
+  rdfs:label "medium-coarse grained siliciclastic rock" ;
+  rdfs:label "medium-coarse grained siliciclastic rock"@en ;
+.
+lith:metamorphic_rock
+  a strat:Lithology-group ;
+  rdfs:label "metamorphic rock" ;
+.
+lith:metamorphosed_acid_igneous_rock
+  a strat:Lithology-group ;
+  rdfs:label "metamorphosed acid igneous rock" ;
+.
+lith:metamorphosed_basic_igneous_rock
+  a strat:Lithology-group ;
+  rdfs:label "metamorphosed basic igneous rock" ;
+.
+lith:metamorphosed_igneous_rock
+  a strat:Lithology-group ;
+  rdfs:label "metamorphosed igneous rock" ;
+.
+lith:metamorphosed_ultramafic_rock
+  a strat:Lithology-group ;
+  rdfs:label "metamorphosed ultramafic rock" ;
+.
+lith:metasedimentary_carbonate_rock
+  a strat:Lithology-group ;
+  rdfs:label "metasedimentary carbonate rock" ;
+.
+lith:metasedimentary_non-carbonate_chemical_or_biochemical_rock
+  a strat:Lithology-group ;
+  rdfs:label "metasedimentary non-carbonate chemical or biochemical rock" ;
+.
+lith:metasedimentary_rock
+  a strat:Lithology-group ;
+  rdfs:label "metasedimentary rock" ;
+.
+lith:metasedimentary_siliciclastic_rock
+  a strat:Lithology-group ;
+  rdfs:label "metasedimentary siliciclastic rock" ;
+.
+lith:mineralisation
+  a strat:Lithology-group ;
+  rdfs:label "mineralisation" ;
+.
+lith:non-carbonate_chemical_or_biochemical_sedimentary_rock
+  a strat:Lithology-group ;
+  rdfs:label "non-carbonate chemical or biochemical sedimentary rock" ;
+.
+lith:organic_rich_sedimentary_rock
+  a strat:Lithology-group ;
+  rdfs:label "organic rich sedimentary rock" ;
+.
+lith:regolith
+  a strat:Lithology-group ;
+  rdfs:label "regolith" ;
+.
+lith:sedimentary_rock
+  a strat:Lithology-group ;
+  rdfs:label "sedimentary rock" ;
+.
+lith:siliciclastic_sedimentary_rock
+  a strat:Lithology-group ;
+  rdfs:label "siliciclastic sedimentary rock" ;
+.
+lith:ultramafic_igneous_rock
+  a strat:Lithology-group ;
+  rdfs:label "ultramafic igneous rock" ;
+.
+lith:ultramafic_intrusive_rock
+  a strat:Lithology-group ;
+  rdfs:label "ultramafic intrusive rock" ;
+.
+lith:ultramafic_volcanic_rock
+  a strat:Lithology-group ;
+  rdfs:label "ultramafic volcanic rock" ;
+.
+<http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary>
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:allValuesFrom <http://resource.geosciml.org/ontology/timescale/gts#StratigraphicPoint> ;
+      owl:onProperty <http://resource.geosciml.org/ontology/timescale/gts#stratotype> ;
+    ] ;
+.
+<http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra>
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:allValuesFrom <http://resource.geosciml.org/ontology/timescale/gts#StratigraphicSection> ;
+      owl:onProperty <http://resource.geosciml.org/ontology/timescale/gts#stratotype> ;
+    ] ;
+.
+<http://resource.geosciml.org/ontology/timescale/gts#StratigraphicSection>
+  rdfs:subClassOf strat:Section ;
+.
+<http://resource.geosciml.org/ontology/timescale/gts#stratotype>
+  rdfs:domain [
+      a owl:Class ;
+      owl:unionOf (
+          <http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary>
+          <http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra>
+        ) ;
+    ] ;
+  rdfs:range [
+      a owl:Class ;
+      owl:unionOf (
+          <http://resource.geosciml.org/ontology/timescale/gts#StratigraphicPoint>
+          <http://resource.geosciml.org/ontology/timescale/gts#StratigraphicSection>
+        ) ;
+    ] ;
+  rdfs:subPropertyOf strat:manifestedBy ;
+.
+<http://www.opengis.net/ont/geosparql#sfContains>
+  rdfs:subPropertyOf strat:contains ;
+.
+<http://www.opengis.net/ont/geosparql#sfWithin>
+  rdfs:subPropertyOf strat:within ;
+.
