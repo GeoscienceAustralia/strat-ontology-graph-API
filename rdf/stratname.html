@@ -1,0 +1,2749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Stratnames ontology</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    
+    <style>
+        #pylode {
+            position: fixed;
+            top: 130px;
+            left: -60px;
+            font-size: small;
+            transform: rotate(-90deg);
+            color: grey;
+        }
+        #pylode a {
+            font-size: 2em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #005A9C;
+        }
+        #pylode a:hover {
+            color: #333;
+        }
+        .cardinality {
+            font-style: italic;
+            color: #aa00aa;
+        }
+        dt {
+            font-weight: bold;
+            padding: 5px 0 5px 0;
+        }
+        ul.hlist {
+            list-style-type: none;
+            border: 1px solid navy;
+            padding:5px;
+            background-color: #F4FFFF;
+        }
+        ul.hierarchy {
+            border: 1px solid navy;
+            padding: 5px 25px 5px 25px;
+            background-color: #F4FFFF;
+        }
+        ul.hlist li {
+            display: inline;
+            margin-right: 10px;
+        }
+        .entity {
+            border: 1px solid navy;
+            margin:5px 0 5px 0;
+            padding: 5px;
+        }
+        .entity th {
+            width: 150px;
+            vertical-align: top;
+        }
+        .entity th,
+        .entity td {
+            padding-bottom: 20px;
+        }
+        .entity table th {
+            text-align: left;
+        }
+        section#overview img {
+            max-width: 1000px;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            text-align: left
+        }
+        h1, h2, h3 {
+            color: #005A9C; background: white
+        }
+        h1 {
+            font: 170% sans-serif;
+            line-height: 110%;
+        }
+        h2 {
+            font: 140% sans-serif;
+            margin-top:40px;
+        }
+        h3 {
+            font: 120% sans-serif;
+            margin-top: 3px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid navy;
+        }
+        h4 { font: bold 100% sans-serif }
+        h5 { font: italic 100% sans-serif }
+        h6 { font: small-caps 100% sans-serif }
+        body {
+            padding: 2em 70px 2em 70px;
+            margin: 0;
+            font-family: sans-serif;
+            color: black;
+            background: white;
+            background-position: top left;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            text-align: justify;
+        }
+        section {
+            max-width: 1500px;
+        }
+        .figure {
+            margin-bottom: 20px;
+        }
+        :link { color: #00C; background: transparent }
+        :visited { color: #609; background: transparent }
+        a:active { color: #C00; background: transparent }
+        .sup-c,
+        .sup-op,
+        .sup-fp,
+        .sup-dp,
+        .sup-ap,
+        .sup-p,
+        .sup-ni,
+        .sup-cp,
+        .sup-cl {
+            cursor:help;
+            margin-left: 3px;
+        }
+        .sup-c {
+            color:orange;
+        }
+        .sup-op {
+            color:navy;
+        }
+        .sup-fp {
+            color:lightskyblue;
+        }
+        .sup-dp {
+            color:green;
+        }
+        .sup-ap {
+            color:darkred;
+        }
+        .sup-p {
+            color:black;
+        }
+        .sup-ni {
+            color:brown;
+        }
+        .sup-cp {
+            color:orange;
+        }
+        .sup-cl {
+            color:darkred;
+        }
+        code {
+            font-size: large;
+            color: darkred;
+        }
+    </style>
+    
+    <script type="application/ld+json">
+      [
+  {
+    "@id": "http://pid.geoscience.ga.gov.au/def/stratname",
+    "@type": [
+      "https://schema.org/DefinedTermSet"
+    ],
+    "https://schema.org/description": [
+      {
+        "@value": "<p>An ontology for the Australian Stratnames dataset, with preliminary alignment to the Geological Timescale Ontology. </p>\n<p>The ontology is based around the usual assumptions made in geological mapping - \ni.e. that the earth can be divided into 'units' that are distinguished from one another on lithological, chronological, geophysical, geochemical or other bases essentially connected with some aspect of their genesis. </p>\n<p>Stratigraphic units are distinguished primarily on the basis of having been formed by some relatively uniform geologic process (and thus be composed of a relatively uniform lithological material) during a discrete time interval. \nNote that any particular <em>occurence</em> of a unit might not contain earth materials that cover the complete time span. </p>\n<p>In the GA Stratnames dataset, the timing of the base and top (i.e. the max and min age) are specified as geologic eras - i.e. time-intervals - which implies a degree of uncertainty or variation in the exact temporal position of the boundary. \nVariation may be due to the terminating event applying at different times in different places. </p>\n<p><img alt=\"\" src=\"../images/overview.png\" /></p>"
+      }
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Stratnames ontology"
+      }
+    ]
+  }
+]
+    </script>
+</head>
+<body>
+  <div id="pylode">made by <a href="http://github.com/rdflib/pyLODE">
+    <span style="color:#329545;">p</span><span style="color:#f9cb33;">y</span>LODE</a>
+    <span style="font-size:smaller;">2.4</span>
+  </div>
+  <h1>Stratnames ontology</h1>
+<section id="metadata">
+    <h2 style="display:none;">Metadata</h2>
+    <dl>
+        <dt>IRI</dt>
+        <dd><code>http://pid.geoscience.ga.gov.au/def/stratname</code></dd>
+        <dt>Creator(s)</dt>
+        <dd>
+            
+    None<br/>
+        </dd>
+        <dt>Created</dt>
+        <dd>2020-06-15</dd>
+        <dt>Modified</dt>
+        <dd>2020-06-17</dd>
+        <dt>Imports</dt>
+        <dd>
+            <a href="file:///C:/Users/cox075/dev/cache-external/schema.ttl">file:///C:/Users/cox075/dev/cache-external/schema.ttl</a><br/>
+            <a href="http://linked.data.gov.au/def/geox">http://linked.data.gov.au/def/geox</a><br/>
+            <a href="http://purl.org/dc/elements/1.1/">http://purl.org/dc/elements/1.1/</a><br/>
+            <a href="http://resource.geosciml.org/ontology/timescale/gts">http://resource.geosciml.org/ontology/timescale/gts</a><br/>
+            <a href="http://www.opengis.net/ont/geosparql">http://www.opengis.net/ont/geosparql</a><br/>
+            <a href="http://www.w3.org/ns/prov-o#">http://www.w3.org/ns/prov-o#</a><br/>
+        </dd>
+        <dt>Ontology RDF</dt>
+        <dd><a href="stratname.ttl">RDF (turtle)</a></dd>
+    </dl>
+    <h2>Description</h2>
+    <div id="description">
+        <p>An ontology for the Australian Stratnames dataset, with preliminary alignment to the Geological Timescale Ontology. </p>
+<p>The ontology is based around the usual assumptions made in geological mapping - 
+i.e. that the earth can be divided into 'units' that are distinguished from one another on lithological, chronological, geophysical, geochemical or other bases essentially connected with some aspect of their genesis. </p>
+<p>Stratigraphic units are distinguished primarily on the basis of having been formed by some relatively uniform geologic process (and thus be composed of a relatively uniform lithological material) during a discrete time interval. 
+Note that any particular <em>occurence</em> of a unit might not contain earth materials that cover the complete time span. </p>
+<p>In the GA Stratnames dataset, the timing of the base and top (i.e. the max and min age) are specified as geologic eras - i.e. time-intervals - which implies a degree of uncertainty or variation in the exact temporal position of the boundary. 
+Variation may be due to the terminating event applying at different times in different places. </p>
+<p><img alt="" src="../images/overview.png" /></p>
+    </div>
+</section>
+<section id="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#objectproperties">Object Properties</a></li>
+        <li><a href="#namedindividuals">Named Individuals</a></li>
+        <li><a href="#namespaces">Namespaces</a></li>
+        <li><a href="#legend">Legend</a></li>
+    </ol>
+</section>
+<section id="overview">
+    <h2>Overview</h2>
+    <div class="figure">
+        <div style="width:500px; height:50px; background-color: lightgrey; border:solid 2px grey; padding:10px;margin-bottom:5px; text-align:center;">Pictures say 1,000 words</div>
+        <div class="caption"><strong>Figure 1:</strong> Ontology overview</div>
+    </div>
+</section>
+  <section id="classes">
+    <h2>Classes <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+        <li><a href="#Associationclassrelatingageologicentitytoanother">Association class relating a geologic entity to another</a></li>
+        <li><a href="#Geologicevent">Geologic event</a></li>
+        <li><a href="#Geologicprovince">Geologic province</a></li>
+        <li><a href="#GeologicalProcess">Geological Process </a></li>
+        <li><a href="#Geologicalsite">Geological site </a></li>
+        <li><a href="#Lithologygroup">Lithology group</a></li>
+        <li><a href="#Stratigraphicboundary">Stratigraphic boundary</a></li>
+        <li><a href="#Stratigraphicentity">Stratigraphic entity</a></li>
+        <li><a href="#Stratigraphicpoint">Stratigraphic point</a></li>
+        <li><a href="#Stratigraphicrelationtype">Stratigraphic relation type</a></li>
+        <li><a href="#Stratigraphicsection">Stratigraphic section</a></li>
+        <li><a href="#Stratigraphicunit">Stratigraphic unit</a></li>
+    </ul>
+    <div class="entity class" id="Stratigraphicboundary">
+        <h3>Stratigraphic boundary<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Boundary</code></td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Restrictions</th>
+                <td>
+                    <a href="#stratotype">strat:stratotype</a><sup class="sup-op" title="object property">op</sup> <span class="cardinality">only</span> <a href="#Stratigraphicpoint">strat:Point</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#bottomboundary">strat:bottom</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#topboundary">strat:top</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Stratigraphicentity">
+        <h3>Stratigraphic entity<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Entity</code></td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://www.opengis.net/ont/geosparql#Feature">geo:Feature</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Restrictions</th>
+                <td>
+                    <a href="#wasDefinedBy">strat:wasDefinedBy</a><sup class="sup-op" title="object property">op</sup> <span class="cardinality">only</span> <a href="http://www.w3.org/ns/prov#Agent">prov:Agent</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Sub-classes</th>
+                <td>
+                    <a href="#Stratigraphicunit">strat:Unit</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Stratigraphicboundary">strat:Boundary</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Geologicprovince">strat:Province</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Geologicevent">strat:Event</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="#terminationprocess">strat:terminationProcess</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#formationprocess">strat:formationProcess</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#qualifiedrelation">strat:qualifiedRelation</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#hasage">strat:age</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#initiationprocess">strat:initiationProcess</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#stratotype">strat:stratotype</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#relation">strat:relation</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Geologicevent">
+        <h3>Geologic event<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Event</code></td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="GeologicalProcess">
+        <h3>Geological Process <sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process</code></td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://www.w3.org/2004/02/skos/core#Concept">skos:Concept</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#formationprocess">strat:formationProcess</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#initiationprocess">strat:initiationProcess</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#terminationprocess">strat:terminationProcess</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Lithologygroup">
+        <h3>Lithology group<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group</code></td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://www.w3.org/2004/02/skos/core#Concept">skos:Concept</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#characteristiclithology">strat:lithology</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Stratigraphicpoint">
+        <h3>Stratigraphic point<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Point</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Point or level within a section through a continuous sequence of rocks (which may be representative of a stratigraphic boundary)</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Geologicalsite">strat:Site</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Restrictions</th>
+                <td>
+                    <a href="#iswithin">strat:within</a><sup class="sup-op" title="object property">op</sup> <span class="cardinality">some</span> <a href="#Stratigraphicsection">strat:Section</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Geologicprovince">
+        <h3>Geologic province<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Province</code></td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Stratigraphicrelationtype">
+        <h3>Stratigraphic relation type<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Relation-type</code></td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://www.w3.org/2004/02/skos/core#Concept">skos:Concept</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#hasrelationshiptype">strat:relationshipType</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Associationclassrelatingageologicentitytoanother">
+        <h3>Association class relating a geologic entity to another<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Relationship</code></td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:qualifiedRelation [
+      rdf:type strat:Relationship ;
+      strat:relation stratnames:u24044 ;
+      strat:relationshipType rel:underlies ;
+    ] ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://www.w3.org/ns/prov#EntityInfluence">prov:EntityInfluence</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Restrictions</th>
+                <td>
+                    <a href="#hasrelationshiptype">strat:relationshipType</a><sup class="sup-op" title="object property">op</sup> <span class="cardinality">exactly</span> 1<br/>
+                    <a href="#relation">strat:relation</a><sup class="sup-op" title="object property">op</sup> <span class="cardinality">exactly</span> 1<br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="#hasrelationshiptype">strat:relationshipType</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#qualifiedrelation">strat:qualifiedRelation</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Stratigraphicsection">
+        <h3>Stratigraphic section<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Section</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Outcrop showing a continuous sequence of rocks (which may be representative of a stratigraphic unit)</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Geologicalsite">strat:Site</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Sub-classes</th>
+                <td>
+                    <a href="http://resource.geosciml.org/ontology/timescale/gts#StratigraphicSection">http://resource.geosciml.org/ontology/timescale/gts#StratigraphicSection</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Geologicalsite">
+        <h3>Geological site <sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Site</code></td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://www.opengis.net/ont/geosparql#Feature">geo:Feature</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Sub-classes</th>
+                <td>
+                    <a href="#Stratigraphicpoint">strat:Point</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Stratigraphicsection">strat:Section</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#stratotype">strat:stratotype</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Stratigraphicunit">
+        <h3>Stratigraphic unit<sup title="class" class="sup-c">c</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#Unit</code></td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:bottomAge &lt;http://resource.geosciml.org/classifier/ics/ischart/Pliocene&gt; ;
+  strat:formationProcess proc:deposition ;
+  strat:lithology lith:medium-coarse_grained_siliciclastic_rock ;
+  strat:qualifiedRelation [
+      rdf:type strat:Relationship ;
+      strat:relation stratnames:u24044 ;
+      strat:relationshipType rel:underlies ;
+    ] ;
+  strat:relation stratnames:p20430 ;
+  strat:terminationProcess proc:deposition ;
+  strat:topAge &lt;http://resource.geosciml.org/classifier/ics/ischart/Pleistocene&gt; ;
+  strat:wasDefinedBy &lt;https://orcid.org/0000-1111-2222-3333&gt; ;
+  dct:identifier "27732" ;
+  dct:title "Campaspe Formation" ;
+  geo:hasGeometry &lt;https://gds.loci.cat/geometry/stratnames/u27732&gt; ;
+  rdfs:label "Campaspe Formation" ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Restrictions</th>
+                <td>
+                    <a href="http://purl.org/dc/terms/identifier">dcterms:identifier</a> <span class="cardinality">exactly</span> 1<br/>
+                    <a href="#stratotype">strat:stratotype</a><sup class="sup-op" title="object property">op</sup> <span class="cardinality">only</span> <a href="#Stratigraphicsection">strat:Section</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#relation">strat:relation</a><sup class="sup-op" title="object property">op</sup> <span class="cardinality">some</span> <a href="#Geologicprovince">strat:Province</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/dc/terms/title">dcterms:title</a> <span class="cardinality">exactly</span> 1<br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="#Ageoftop">strat:topAge</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#characteristiclithology">strat:lithology</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#bottomboundary">strat:bottom</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#Ageofbase">strat:bottomAge</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#topboundary">strat:top</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+<section id="objectproperties">
+    <h2>Object Properties <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+        <li><a href="#hasage">has age</a></li>
+        <li><a href="#bottomboundary">bottom boundary</a></li>
+        <li><a href="#Ageofbase">Age of base</a></li>
+        <li><a href="#contains">contains</a></li>
+        <li><a href="#correlatingboundaryorera">correlating boundary or era</a></li>
+        <li><a href="#formationprocess">formation process</a></li>
+        <li><a href="#holostratotype">holostratotype</a></li>
+        <li><a href="#hypostratotype">hypostratotype</a></li>
+        <li><a href="#initiationprocess">initiation process</a></li>
+        <li><a href="#lectostratotype">lectostratotype</a></li>
+        <li><a href="#characteristiclithology">characteristic lithology</a></li>
+        <li><a href="#geologicmanifestation">geologic manifestation</a></li>
+        <li><a href="#neostratotype">neostratotype</a></li>
+        <li><a href="#parastratotype">parastratotype</a></li>
+        <li><a href="#qualifiedrelation">qualified relation</a></li>
+        <li><a href="#relation">relation</a></li>
+        <li><a href="#hasrelationshiptype">has relationship type</a></li>
+        <li><a href="#stratotype">stratotype</a></li>
+        <li><a href="#terminationprocess">termination process</a></li>
+        <li><a href="#topboundary">top boundary</a></li>
+        <li><a href="#Ageoftop">Age of top</a></li>
+        <li><a href="#wasDefinedBy">wasDefinedBy</a></li>
+        <li><a href="#iswithin">is within </a></li>
+    </ul>
+    <div class="entity property" id="hasage">
+        <h3>has age<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#age</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    age of stratigraphic entity
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/2006/time#hasTime">http://www.w3.org/2006/time#hasTime</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="bottomboundary">
+        <h3>bottom boundary<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#bottom</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Boundary of base of unit
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="#relation">strat:relation</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicunit">strat:Unit</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#Stratigraphicboundary">strat:Boundary</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="Ageofbase">
+        <h3>Age of base<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#bottomAge</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Age of base of unit
+                </td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:bottomAge <http://resource.geosciml.org/classifier/ics/ischart/Pliocene> ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/2006/time#hasTime">http://www.w3.org/2006/time#hasTime</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicunit">strat:Unit</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="contains">
+        <h3>contains<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#contains</code></td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/dc/terms/relation">dcterms:relation</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="correlatingboundaryorera">
+        <h3>correlating boundary or era<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#correlatesWith</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    This property points from a geologic feature or event to a geochronologic element
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary">http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra">http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="formationprocess">
+        <h3>formation process<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#formationProcess</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Process that formed the geologic entity
+                </td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:formationProcess proc:deposition ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#GeologicalProcess">strat:Geologic-process</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="holostratotype">
+        <h3>holostratotype<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#holostratotype</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    the original stratotype designated by the original author at the time of proposing a stratigraphic unit or boundary
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="#stratotype">strat:stratotype</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hypostratotype">
+        <h3>hypostratotype<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#hypostratotype</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    a stratotype proposed after the original designation of the holostratotype (and parastratotype) in order to extend knowledge of the unit or boundary to other geographic areas. It is always subordinate to the holostratotype
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="#stratotype">strat:stratotype</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="initiationprocess">
+        <h3>initiation process<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#initiationProcess</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Process that initiated the geologic entity
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#GeologicalProcess">strat:Geologic-process</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="lectostratotype">
+        <h3>lectostratotype<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#lectostratotype</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    a stratotype for a previously described stratigraphic unit selected later in the absence of an adequately designated original stratotype (holostratotype)
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="#stratotype">strat:stratotype</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="characteristiclithology">
+        <h3>characteristic lithology<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#lithology</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Characteristic lithological material for the geologic entity
+                </td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:lithology lith:medium-coarse_grained_siliciclastic_rock ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicunit">strat:Unit</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#Lithologygroup">strat:Lithology-group</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="geologicmanifestation">
+        <h3>geologic manifestation<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#manifestedBy</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    This property points from a geochronologic element to a geologic feature which shows characteristics associated with the event associated with the boundary or era
+                </td>
+            </tr>
+            <tr>
+                <th>Inverse properties</th>
+                <td>
+                    <a href="#correlatingboundaryorera">strat:correlatesWith</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    (<a href="http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary">http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary</a><sup class="sup-c" title="class">c</sup> or <a href="http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra">http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra</a><sup class="sup-c" title="class">c</sup>)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="neostratotype">
+        <h3>neostratotype<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#neostratotype</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    a new stratotype selected to replace an older one which has been destroyed, covered, or otherwise made inaccessible
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="#stratotype">strat:stratotype</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="parastratotype">
+        <h3>parastratotype<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#parastratotype</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    a supplementary stratotype used in the original definition by the original author to illustrate the diversity or heterogeneity of the defined stratigraphic unit or some critical feature not evident or exposed in the holostratotype
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="#stratotype">strat:stratotype</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="qualifiedrelation">
+        <h3>qualified relation<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#qualifiedRelation</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Association to another geologic unit
+                </td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:qualifiedRelation [
+      rdf:type strat:Relationship ;
+      strat:relation stratnames:u24044 ;
+      strat:relationshipType rel:underlies ;
+    ] ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#Associationclassrelatingageologicentitytoanother">strat:Relationship</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="relation">
+        <h3>relation<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#relation</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The related geologic entity
+                </td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:qualifiedRelation [
+      rdf:type strat:Relationship ;
+      strat:relation stratnames:u24044 ;
+      strat:relationshipType rel:underlies ;
+    ] ;
+  strat:relation stratnames:p20430 ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/dc/terms/relation">dcterms:relation</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasrelationshiptype">
+        <h3>has relationship type<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#relationshipType</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The nature of the relationship between two geologic entities
+                </td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:qualifiedRelation [
+      rdf:type strat:Relationship ;
+      strat:relation stratnames:u24044 ;
+      strat:relationshipType rel:underlies ;
+    ] ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Associationclassrelatingageologicentitytoanother">strat:Relationship</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#Stratigraphicrelationtype">strat:Relation-type</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="stratotype">
+        <h3>stratotype<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#stratotype</code></td>
+            </tr>
+            <tr>
+                <th>Source</th>
+                <td>
+                    Salvador, A (Editor) 1994, International Stratigraphic Guide: A guide to stratigraphic classification, terminology, and procedure. 2nd edition. International Union of Geological Sciences and the Geological Society of America, Boulder, Colorado.
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    type manifestation of the stratigraphic entity: section for a unit; point or surface for a boundary or event
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="#geologicmanifestation">strat:manifestedBy</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#Geologicalsite">strat:Site</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="terminationprocess">
+        <h3>termination process<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#terminationProcess</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Process that terminated the formation of the geologic entity
+                </td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:terminationProcess proc:deposition ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicentity">strat:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#GeologicalProcess">strat:Geologic-process</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="topboundary">
+        <h3>top boundary<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#top</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Boundary of top of unit
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="#relation">strat:relation</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicunit">strat:Unit</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="#Stratigraphicboundary">strat:Boundary</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="Ageoftop">
+        <h3>Age of top<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#topAge</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Age of top of unit
+                </td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:topAge <http://resource.geosciml.org/classifier/ics/ischart/Pleistocene> ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="#hasage">strat:age</a><sup class="sup-op" title="object property">op</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Stratigraphicunit">strat:Unit</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="wasDefinedBy">
+        <h3>wasDefinedBy<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#wasDefinedBy</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    was defined by
+                </td>
+            </tr>
+            <tr>
+                <th>Example</th>
+                <td>
+                    <pre>
+                      
+stratnames:u27732
+  rdf:type strat:Unit ;
+  strat:wasDefinedBy <https://orcid.org/0000-1111-2222-3333> ;
+.
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/ns/prov#wasAttributedTo">prov:wasAttributedTo</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/ns/prov#Agent">prov:Agent</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="iswithin">
+        <h3>is within <sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td><code>http://pid.geoscience.ga.gov.au/def/stratname#within</code></td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/dc/terms/relation">dcterms:relation</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+  
+  <section id="namedindividuals">
+    <h2>Named Individuals <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+        <li><a href="#Age">Age</a></li>
+        <li><a href="#Eon">Eon</a></li>
+        <li><a href="#Epoch">Epoch</a></li>
+        <li><a href="#Era">Era</a></li>
+        <li><a href="#Period">Period</a></li>
+        <li><a href="#Sub-Period">Sub-Period</a></li>
+        <li><a href="#Super-Eon">Super-Eon</a></li>
+        <li><a href="#abuts">abuts</a></li>
+        <li><a href="#acidigneousrock">acid igneous rock</a></li>
+        <li><a href="#acidintrusiverock">acid intrusive rock</a></li>
+        <li><a href="#acidvolcanicrock">acid volcanic rock</a></li>
+        <li><a href="#alteration">alteration</a></li>
+        <li><a href="#basicigneousrock">basic igneous rock</a></li>
+        <li><a href="#basicintrusiverock">basic intrusive rock</a></li>
+        <li><a href="#basicvolcanicrock">basic volcanic rock</a></li>
+        <li><a href="#biogenicsilicasedimentaryrock">biogenic silica sedimentary rock</a></li>
+        <li><a href="#carbonatesedimentaryrock">carbonate sedimentary rock</a></li>
+        <li><a href="#deformation">deformation</a></li>
+        <li><a href="#deposition">deposition</a></li>
+        <li><a href="#diagenesis">diagenesis</a></li>
+        <li><a href="#eruption">eruption</a></li>
+        <li><a href="#exoticcompositionigneousrock">exotic composition igneous rock</a></li>
+        <li><a href="#finegrainedsiliciclasticrock">fine grained siliciclastic rock</a></li>
+        <li><a href="#gradesinto">grades into</a></li>
+        <li><a href="#highgrademetamorphicrock">high grade metamorphic rock</a></li>
+        <li><a href="#hosts">hosts</a></li>
+        <li><a href="#igneousintrusiverock">igneous intrusive rock</a></li>
+        <li><a href="#igneousrock">igneous rock</a></li>
+        <li><a href="#igneousvolcanicrock">igneous volcanic rock</a></li>
+        <li><a href="#intermediateintrusiverock">intermediate intrusive rock</a></li>
+        <li><a href="#intermediatevolcanicrock">intermediate volcanic rock</a></li>
+        <li><a href="#intermingleswith">intermingles with</a></li>
+        <li><a href="#intersects">intersects</a></li>
+        <li><a href="#intrudes">intrudes</a></li>
+        <li><a href="#intrusion">intrusion</a></li>
+        <li><a href="#isequivalentto">is equivalent to</a></li>
+        <li><a href="#isfaultedagainst">is faulted against</a></li>
+        <li><a href="#ishostedby">is hosted by</a></li>
+        <li><a href="#isinterbeddedwith">is interbedded with</a></li>
+        <li><a href="#isintersectedby">is intersected by</a></li>
+        <li><a href="#isintrudedby">is intruded by</a></li>
+        <li><a href="#isreplacedby">is replaced by</a></li>
+        <li><a href="#low-intermediategrademetamorphicrock">low-intermediate grade metamorphic rock</a></li>
+        <li><a href="#magmatic-crystallisation">magmatic-crystallisation</a></li>
+        <li><a href="#maximum-depositional-age">maximum-depositional-age</a></li>
+        <li><a href="#medium-coarsegrainedsiliciclasticrock">medium-coarse grained siliciclastic rock</a></li>
+        <li><a href="#metamorphicrock">metamorphic rock</a></li>
+        <li><a href="#metamorphism">metamorphism</a></li>
+        <li><a href="#metamorphosedacidigneousrock">metamorphosed acid igneous rock</a></li>
+        <li><a href="#metamorphosedbasicigneousrock">metamorphosed basic igneous rock</a></li>
+        <li><a href="#metamorphosedigneousrock">metamorphosed igneous rock</a></li>
+        <li><a href="#metamorphosedultramaficrock">metamorphosed ultramafic rock</a></li>
+        <li><a href="#metasedimentarycarbonaterock">metasedimentary carbonate rock</a></li>
+        <li><a href="#metasedimentarynon-carbonatechemicalorbiochemicalrock">metasedimentary non-carbonate chemical or biochemical rock</a></li>
+        <li><a href="#metasedimentaryrock">metasedimentary rock</a></li>
+        <li><a href="#metasedimentarysiliciclasticrock">metasedimentary siliciclastic rock</a></li>
+        <li><a href="#mineralisation">mineralisation</a></li>
+        <li><a href="#minimum-depositional-age">minimum-depositional-age</a></li>
+        <li><a href="#non-carbonatechemicalorbiochemicalsedimentaryrock">non-carbonate chemical or biochemical sedimentary rock</a></li>
+        <li><a href="#organicrichsedimentaryrock">organic rich sedimentary rock</a></li>
+        <li><a href="#overlies">overlies</a></li>
+        <li><a href="#regolith">regolith</a></li>
+        <li><a href="#replaces">replaces</a></li>
+        <li><a href="#sedimentaryrock">sedimentary rock</a></li>
+        <li><a href="#siliciclasticsedimentaryrock">siliciclastic sedimentary rock</a></li>
+        <li><a href="#tectonic-process">tectonic-process</a></li>
+        <li><a href="#ultramaficigneousrock">ultramafic igneous rock</a></li>
+        <li><a href="#ultramaficintrusiverock">ultramafic intrusive rock</a></li>
+        <li><a href="#ultramaficvolcanicrock">ultramafic volcanic rock</a></li>
+        <li><a href="#underlies">underlies</a></li>
+        <li><a href="#unknown">unknown</a></li>
+        <li><a href="#weathering">weathering</a></li>
+    </ul>
+    <div class="entity named_individual" id="acidigneousrock">
+        <h3>acid igneous rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/acid_igneous_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="acidintrusiverock">
+        <h3>acid intrusive rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/acid_intrusive_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="acidvolcanicrock">
+        <h3>acid volcanic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/acid_volcanic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="basicigneousrock">
+        <h3>basic igneous rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/basic_igneous_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="basicintrusiverock">
+        <h3>basic intrusive rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/basic_intrusive_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="basicvolcanicrock">
+        <h3>basic volcanic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/basic_volcanic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="biogenicsilicasedimentaryrock">
+        <h3>biogenic silica sedimentary rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/biogenic_silica_sedimentary_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="carbonatesedimentaryrock">
+        <h3>carbonate sedimentary rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/carbonate_sedimentary_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="exoticcompositionigneousrock">
+        <h3>exotic composition igneous rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/exotic_composition_igneous_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="finegrainedsiliciclasticrock">
+        <h3>fine grained siliciclastic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/fine_grained_siliciclastic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="highgrademetamorphicrock">
+        <h3>high grade metamorphic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/high_grade_metamorphic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="igneousintrusiverock">
+        <h3>igneous intrusive rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/igneous_intrusive_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="igneousrock">
+        <h3>igneous rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/igneous_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="igneousvolcanicrock">
+        <h3>igneous volcanic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/igneous_volcanic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="intermediateintrusiverock">
+        <h3>intermediate intrusive rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/intermediate_intrusive_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="intermediatevolcanicrock">
+        <h3>intermediate volcanic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/intermediate_volcanic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="low-intermediategrademetamorphicrock">
+        <h3>low-intermediate grade metamorphic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/low-intermediate_grade_metamorphic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="medium-coarsegrainedsiliciclasticrock">
+        <h3>medium-coarse grained siliciclastic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/medium-coarse_grained_siliciclastic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metamorphicrock">
+        <h3>metamorphic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/metamorphic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metamorphosedacidigneousrock">
+        <h3>metamorphosed acid igneous rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/metamorphosed_acid_igneous_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metamorphosedbasicigneousrock">
+        <h3>metamorphosed basic igneous rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/metamorphosed_basic_igneous_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metamorphosedigneousrock">
+        <h3>metamorphosed igneous rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/metamorphosed_igneous_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metamorphosedultramaficrock">
+        <h3>metamorphosed ultramafic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/metamorphosed_ultramafic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metasedimentarycarbonaterock">
+        <h3>metasedimentary carbonate rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/metasedimentary_carbonate_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metasedimentarynon-carbonatechemicalorbiochemicalrock">
+        <h3>metasedimentary non-carbonate chemical or biochemical rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/metasedimentary_non-carbonate_chemical_or_biochemical_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metasedimentaryrock">
+        <h3>metasedimentary rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/metasedimentary_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metasedimentarysiliciclasticrock">
+        <h3>metasedimentary siliciclastic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/metasedimentary_siliciclastic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="mineralisation">
+        <h3>mineralisation<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/mineralisation
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="non-carbonatechemicalorbiochemicalsedimentaryrock">
+        <h3>non-carbonate chemical or biochemical sedimentary rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/non-carbonate_chemical_or_biochemical_sedimentary_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="organicrichsedimentaryrock">
+        <h3>organic rich sedimentary rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/organic_rich_sedimentary_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="regolith">
+        <h3>regolith<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/regolith
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="sedimentaryrock">
+        <h3>sedimentary rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/sedimentary_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="siliciclasticsedimentaryrock">
+        <h3>siliciclastic sedimentary rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/siliciclastic_sedimentary_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="ultramaficigneousrock">
+        <h3>ultramafic igneous rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/ultramafic_igneous_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="ultramaficintrusiverock">
+        <h3>ultramafic intrusive rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/ultramafic_intrusive_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="ultramaficvolcanicrock">
+        <h3>ultramafic volcanic rock<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/lithology/ultramafic_volcanic_rock
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Lithology-group">strat:Lithology-group</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="alteration">
+        <h3>alteration<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/alteration
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="deformation">
+        <h3>deformation<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/deformation
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="deposition">
+        <h3>deposition<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/deposition
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="diagenesis">
+        <h3>diagenesis<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/diagenesis
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="eruption">
+        <h3>eruption<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/eruption
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="intrusion">
+        <h3>intrusion<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/intrusion
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="magmatic-crystallisation">
+        <h3>magmatic-crystallisation<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/magmatic-crystallisation
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="maximum-depositional-age">
+        <h3>maximum-depositional-age<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/maximum-depositional-age
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="metamorphism">
+        <h3>metamorphism<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/metamorphism
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="minimum-depositional-age">
+        <h3>minimum-depositional-age<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/minimum-depositional-age
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="tectonic-process">
+        <h3>tectonic-process<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/tectonic-process
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="weathering">
+        <h3>weathering<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/process/weathering
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Geologic-process">strat:Geologic-process</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="abuts">
+        <h3>abuts<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/abuts
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="gradesinto">
+        <h3>grades into<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/grades-into
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="hosts">
+        <h3>hosts<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/hosts
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="intermingleswith">
+        <h3>intermingles with<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/intermingles-with
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="intersects">
+        <h3>intersects<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/intersects
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="intrudes">
+        <h3>intrudes<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/intrudes
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="isequivalentto">
+        <h3>is equivalent to<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/is-equivalent-to
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="isfaultedagainst">
+        <h3>is faulted against<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/is-faulted-against
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="ishostedby">
+        <h3>is hosted by<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/is-hosted-by
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="isinterbeddedwith">
+        <h3>is interbedded with<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/is-interbedded-with
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="isintersectedby">
+        <h3>is intersected by<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/is-intersected-by
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="isintrudedby">
+        <h3>is intruded by<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/is-intruded-by
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="isreplacedby">
+        <h3>is replaced by<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/is-replaced-by
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="overlies">
+        <h3>overlies<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/overlies
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="replaces">
+        <h3>replaces<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/replaces
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="underlies">
+        <h3>underlies<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/underlies
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="unknown">
+        <h3>unknown<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://pid.geoscience.ga.gov.au/def/stratname/relation/unknown
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://pid.geoscience.ga.gov.au/def/stratname#Relation-type">strat:Relation-type</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="Age">
+        <h3>Age<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://resource.geosciml.org/ontology/timescale/rank/Age
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity named_individual" id="Eon">
+        <h3>Eon<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://resource.geosciml.org/ontology/timescale/rank/Eon
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity named_individual" id="Epoch">
+        <h3>Epoch<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://resource.geosciml.org/ontology/timescale/rank/Epoch
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity named_individual" id="Era">
+        <h3>Era<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://resource.geosciml.org/ontology/timescale/rank/Era
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity named_individual" id="Period">
+        <h3>Period<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://resource.geosciml.org/ontology/timescale/rank/Period
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity named_individual" id="Sub-Period">
+        <h3>Sub-Period<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://resource.geosciml.org/ontology/timescale/rank/Sub-Period
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity named_individual" id="Super-Eon">
+        <h3>Super-Eon<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>IRI</th>
+                <td>
+                  <code>
+                      http://resource.geosciml.org/ontology/timescale/rank/Super-Eon
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+  
+  <section id="namespaces">
+    <h2>Namespaces <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <dl>
+        <dt><em>default (:)</em></dt>
+        <dd><code>http://pid.geoscience.ga.gov.au/def/stratname#</code></dd>
+        <dt>dcterms</dt>
+        <dd><code>http://purl.org/dc/terms/</code></dd>
+        <dt>geo</dt>
+        <dd><code>http://www.opengis.net/ont/geosparql#</code></dd>
+        <dt>lith</dt>
+        <dd><code>http://pid.geoscience.ga.gov.au/def/stratname/lithology/</code></dd>
+        <dt>owl</dt>
+        <dd><code>http://www.w3.org/2002/07/owl#</code></dd>
+        <dt>proc</dt>
+        <dd><code>http://pid.geoscience.ga.gov.au/def/stratname/process/</code></dd>
+        <dt>prov</dt>
+        <dd><code>http://www.w3.org/ns/prov#</code></dd>
+        <dt>rdf</dt>
+        <dd><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></dd>
+        <dt>rdfs</dt>
+        <dd><code>http://www.w3.org/2000/01/rdf-schema#</code></dd>
+        <dt>rel</dt>
+        <dd><code>http://pid.geoscience.ga.gov.au/def/stratname/relation/</code></dd>
+        <dt>schema</dt>
+        <dd><code>http://schema.org/</code></dd>
+        <dt>sdo</dt>
+        <dd><code>https://schema.org/</code></dd>
+        <dt>skos</dt>
+        <dd><code>http://www.w3.org/2004/02/skos/core#</code></dd>
+        <dt>strat</dt>
+        <dd><code>http://pid.geoscience.ga.gov.au/def/stratname#</code></dd>
+        <dt>xml</dt>
+        <dd><code>http://www.w3.org/XML/1998/namespace</code></dd>
+        <dt>xsd</dt>
+        <dd><code>http://www.w3.org/2001/XMLSchema#</code></dd>
+    </dl>
+</section>
+  <section id="legend">
+      <h2>Legend</h2>
+      <table class="entity">
+          <tr><td><sup class="sup-c" title="Classes">c</sup></td><td>Classes</td></tr>
+          <tr><td><sup class="sup-op" title="Object Properties">op</sup></td><td>Object Properties</td></tr>
+          <tr><td><sup class="sup-fp" title="Functional Properties">fp</sup></td><td>Functional Properties</td></tr>
+          <tr><td><sup class="sup-dp" title="Data Properties">dp</sup></td><td>Data Properties</td></tr>
+          <tr><td><sup class="sup-ap" title="Annotation Properties">dp</sup></td><td>Annotation Properties</td></tr>
+          <tr><td><sup class="sup-p" title="Properties">p</sup></td><td>Properties</td></tr>
+          <tr><td><sup class="sup-ni" title="Named Individuals">ni</sup></td><td>Named Individuals</td></tr>
+      </table>
+  </section>
+</body>
+</html>
