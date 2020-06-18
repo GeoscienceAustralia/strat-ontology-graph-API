@@ -21,7 +21,6 @@
 <http://pid.geoscience.ga.gov.au/dataset/stratnames>
   a owl:Ontology ;
   owl:imports <http://pid.geoscience.ga.gov.au/def/stratname> ;
-  owl:versionInfo "Created with TopBraid Composer" ;
 .
 stratnames:p20430
   a strat:Province ;
