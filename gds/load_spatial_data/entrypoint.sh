@@ -5,7 +5,8 @@
 
 #download files
 #wget https://github.com/nvkelso/natural-earth-vector/raw/master/geojson/ne_10m_admin_0_countries.geojson
-wget -O STRAT_RELATIONS.geojson https://transfer-temp-scidata.s3-ap-southeast-2.amazonaws.com/STRAT_RELATIONS_extended_geom20200614_03.geojson 
+#wget -O STRAT_RELATIONS.geojson https://transfer-temp-scidata.s3-ap-southeast-2.amazonaws.com/STRAT_RELATIONS_extended_geom20200614_03.geojson 
+wget -O STRAT_RELATIONS.geojson https://transfer-temp-scidata.s3-ap-southeast-2.amazonaws.com/STRAT_RELATIONS_PROV_GEOM_DISTINCT_20200621.geojson 
 
 #load spatial layers into postgis
 
