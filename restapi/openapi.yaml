@@ -45,6 +45,7 @@ paths:
         in: query
         description: Target URI
         required: true
+        example:  "http://pid.geoscience.ga.gov.au/dataset/stratnames/u10273"
         schema:
           type: string
       responses:
