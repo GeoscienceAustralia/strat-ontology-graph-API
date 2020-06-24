@@ -1,0 +1,55 @@
+openapi: 3.0.0
+info:
+  title: Stratnames API
+  version: "v0.1"
+servers:
+  - url: /
+    description: default
+tags:
+- name: default
+  description: Default namespace
+- name: stratnames
+  description: Default namespace
+
+paths:
+  /:
+    get:
+      summary: API Landing Page
+      tags:
+      - default
+      operationId: controller.default.go_home
+      responses:
+        200:
+          description: Success
+          content: {}
+
+  /stratnames:
+    get:
+      summary: Gets all stratnames
+      tags:
+      - stratnames 
+      operationId: controller.stratnames.get
+      responses:
+        200:
+          description: Success
+          content: {}
+
+  /resource:
+    get:
+      tags:
+      - default
+      summary: Gets a Resource
+      operationId: controller.default.query_for_resource
+      parameters:
+      - name: uri
+        in: query
+        description: Target URI
+        required: true
+        example:  "http://pid.geoscience.ga.gov.au/dataset/stratnames/u10273"
+        schema:
+          type: string
+      responses:
+        200:
+          description: Success
+          content: {}
+
