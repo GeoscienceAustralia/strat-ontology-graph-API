@@ -305,7 +305,10 @@ export default class FindByPointResults extends Component {
   }
 
   convertLocalGds = (gds_url) => {    
-    return gds_url.replace("http://gds:3000/", "http://localhost:3000/")
+    //return gds_url.replace("http://gds:3000/", "http://localhost:3000/")
+    const from_prefix = process.env.REACT_APP_GDS_FROM_URL_PREFIX;
+    const to_prefix = process.env.REACT_APP_GDS_TO_URL_PREFIX;
+    return gds_url.replace(from_prefix, to_prefix);
   }
 
   addJobToQueue = (key, j) => {    
