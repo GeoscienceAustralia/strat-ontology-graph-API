@@ -1,0 +1,53 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.6",
+    "@turf/turf": "^5.1.6",
+    "bootstrap": "^4.3.1",
+    "css-loader": "^3.4.2",
+    "d3": "^5.12.0",
+    "epsg": "^0.5.0",
+    "jsonld": "^3.0.1",
+    "leaflet": "^1.5.1",
+    "package.json": "^2.0.1",
+    "parse-gml-polygon": "^0.3.5",
+    "proj4js": "^10.0.0",
+    "query-string": "^6.8.3",
+    "react": "^16.10.2",
+    "react-bootstrap": "^1.0.0-beta.14",
+    "react-dom": "^16.10.2",
+    "react-leaflet": "^2.4.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "reproject": "^1.2.5",
+    "xml-reader": "^2.4.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "aws s3 sync build/ s3://loci-integration-app-test --acl public-read",
+    "deploy-to-dev": "aws s3 sync build/ s3://loci-integration-explorer-dev --acl public-read",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "start:debug": "node --inspect-brk=5858 ./server/index.js"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
