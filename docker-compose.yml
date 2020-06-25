@@ -19,15 +19,6 @@ services:
             - "${PORT:-7200}:7200"
         #command: "tail -f /dev/null"
 
-    api:
-       build: ./restapi
-       ports:
-         - "${API_PORT:-8080}:8080"
-       environment:
-         - TRIPLESTORE_CACHE_URL
-         - TRIPLESTORE_CACHE_PORT
-
-
 volumes:
     graphdb_data:
     data_cache:
