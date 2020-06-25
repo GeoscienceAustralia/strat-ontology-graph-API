@@ -22,6 +22,11 @@ $ docker-compose -f docker-compose.gds.yml up -d --build
 $ docker-compose -f docker-compose.api.yml up -d --build
 ```
 
+Test the deployment using
+```
+$ ./check-deployment.sh
+```
+
 ### Bring down the infrastructure
 
 ```
