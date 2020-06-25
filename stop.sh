@@ -2,4 +2,5 @@
 set -e
 
 
-docker-compose down
+docker-compose stop graphcache
+docker-compose rm -f graphcache

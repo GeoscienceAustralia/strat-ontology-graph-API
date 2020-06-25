@@ -4,7 +4,7 @@ def get():
    limit = 2000
    offset = 0
    sparql = """\
-PREFIX strat: <http://pid.geoscience.ga.gov.au/def/stratname#>
+PREFIX strat: <http://pid.geoscience.gov.au/def/stratname#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX time: <http://www.w3.org/2006/time#>
