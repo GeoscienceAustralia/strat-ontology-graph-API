@@ -20,7 +20,7 @@ PASS=$PG_PASS
 #ne_10m_admin_0_countries.geojson|ne_10m_admin_0_countries
 #"
 SPATIAL_LAYERS_MAP="
-STRAT_RELATIONS.geojson|strat
+STRAT_RELATIONS.geojson|province
 "
 
 # load asgs files into postgis
