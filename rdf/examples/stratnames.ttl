@@ -1,26 +1,26 @@
-# baseURI: http://pid.geoscience.ga.gov.au/dataset/stratnames
-# imports: http://pid.geoscience.ga.gov.au/def/stratname
+# baseURI: http://pid.geoscience.gov.au/dataset/stratnames-x
+# imports: http://pid.geoscience.gov.au/def/stratname
 # prefix: stratnames
 
 @prefix data: <http://linked.data.gov.au/def/datatype/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix lith: <http://pid.geoscience.ga.gov.au/def/stratname/lithology/> .
+@prefix lith: <http://pid.geoscience.gov.au/def/stratname/lithology/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix proc: <http://pid.geoscience.ga.gov.au/def/stratname/process/> .
+@prefix proc: <http://pid.geoscience.gov.au/def/stratname/process/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rel: <http://pid.geoscience.ga.gov.au/def/stratname/relation/> .
+@prefix rel: <http://pid.geoscience.gov.au/def/stratname/relation/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix strat: <http://pid.geoscience.ga.gov.au/def/stratname#> .
-@prefix stratnames: <http://pid.geoscience.ga.gov.au/dataset/stratnames#> .
+@prefix strat: <http://pid.geoscience.gov.au/def/stratname#> .
+@prefix stratnames: <http://pid.geoscience.gov.au/dataset/stratnames#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://pid.geoscience.ga.gov.au/dataset/stratnames>
+<http://pid.geoscience.gov.au/dataset/stratnames-x>
   a owl:Ontology ;
-  owl:imports <http://pid.geoscience.ga.gov.au/def/stratname> ;
+  owl:imports <http://pid.geoscience.gov.au/def/stratname> ;
 .
 stratnames:p20430
   a strat:Province ;

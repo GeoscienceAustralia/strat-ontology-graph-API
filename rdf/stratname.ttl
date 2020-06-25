@@ -1,4 +1,4 @@
-# baseURI: http://pid.geoscience.ga.gov.au/def/stratname
+# baseURI: http://pid.geoscience.gov.au/def/stratname
 # imports: file:///C:/Users/cox075/dev/cache-external/schema.ttl
 # imports: http://linked.data.gov.au/def/geox
 # imports: http://purl.org/dc/elements/1.1/
@@ -9,19 +9,19 @@
 
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix lith: <http://pid.geoscience.ga.gov.au/def/stratname/lithology/> .
+@prefix lith: <http://pid.geoscience.gov.au/def/stratname/lithology/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix proc: <http://pid.geoscience.ga.gov.au/def/stratname/process/> .
+@prefix proc: <http://pid.geoscience.gov.au/def/stratname/process/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rel: <http://pid.geoscience.ga.gov.au/def/stratname/relation/> .
+@prefix rel: <http://pid.geoscience.gov.au/def/stratname/relation/> .
 @prefix schema: <http://schema.org/> .
 @prefix sdo: <https://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix strat: <http://pid.geoscience.ga.gov.au/def/stratname#> .
+@prefix strat: <http://pid.geoscience.gov.au/def/stratname#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://pid.geoscience.ga.gov.au/def/stratname>
+<http://pid.geoscience.gov.au/def/stratname>
   a owl:Ontology ;
   dcterms:created "2020-06-15"^^xsd:date ;
   dcterms:creator <https://orcid.org/0000-0002-3884-3420> ;
