@@ -2,7 +2,37 @@
 
 Includes ontology, graph database, API.
 
-More to come.
+
+## Getting started
+
+### Spinning up infrastructure
+
+1. Bring up the GraphDB instance
+```
+$ ./startup-graphdb.sh --local-build
+```
+
+2. Bring up the GDS
+```
+$ docker-compose -f docker-compose.gds.yml up -d --build
+```
+
+3. Bring up the REST API
+```
+$ docker-compose -f docker-compose.api.yml up -d --build
+```
+
+Test the deployment using
+```
+$ ./check-deployment.sh
+```
+
+### Bring down the infrastructure
+
+```
+$ docker-compose -f docker-compose.api.yml -f docker-compose.gds.yml -f docker-compose.yml down -v
+
+```
 
 ## GraphDB deployment
 
@@ -10,11 +40,11 @@ More to come.
 * docker
 * docker-compose
 
-### Quickstart
+### Start the GraphDB instance
 
 Add your RDF files in `strat_graph_data`. This will then be loaded into the GraphDB instance
 ```
-$ ./startup.sh --local-build
+$ ./startup-graphdb.sh --local-build
 ```
 
 The GraphDB will be available at http://localhost:7200. If you would like to change the port,
@@ -69,3 +99,15 @@ or specify those values in .env
 "GSDB_PASS=${GSDB_PASS:-jon}"
 "GSDB_CLIENT_MAX_CONN_POOL=${GSDB_CLIENT_MAX_CONN_POOL:-30}"
 ```
+
+## REST API
+
+
+Bring up the REST API
+```
+$ docker-compose -f docker-compose.api.yml up -d --build
+```
+
+Configure `.env` to bind the GEOM_DATA_SVC_ENDPOINT variable to the 
+desired GDS instance. The default is a local deployment at http://gds:3000
+
