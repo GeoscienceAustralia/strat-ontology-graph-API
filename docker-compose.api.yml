@@ -9,4 +9,3 @@ services:
          - TRIPLESTORE_CACHE_URL
          - TRIPLESTORE_CACHE_PORT
          - GEOM_DATA_SVC_ENDPOINT
-       command: tail -f /dev/null
