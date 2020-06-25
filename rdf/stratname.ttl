@@ -98,6 +98,11 @@ strat:Province
   a owl:Class ;
   rdfs:label "Geologic province" ;
   rdfs:subClassOf strat:Entity ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty geo:hasGeometry ;
+    ] ;
 .
 strat:Relation-type
   a owl:Class ;
@@ -111,6 +116,11 @@ strat:Relationship
   rdfs:subClassOf [
       a owl:Restriction ;
       owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty strat:context ;
+    ] ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
       owl:onProperty strat:relation ;
     ] ;
   rdfs:subClassOf [
@@ -119,13 +129,11 @@ strat:Relationship
       owl:onProperty strat:relationshipType ;
     ] ;
   skos:example """
-stratnames:u27732
-  rdf:type strat:Unit ;
-  strat:qualifiedRelation [
-      rdf:type strat:Relationship ;
-      strat:relation stratnames:u24044 ;
-      strat:relationshipType rel:underlies ;
-    ] ;
+stratnames:u10834overliesu488
+  rdf:type strat:Relationship ;
+  strat:context stratnames:u10834 ;
+  strat:relation stratnames:u488 ;
+  strat:relationshipType rel:overlies ;
 .
 """ ;
 .
@@ -181,7 +189,6 @@ stratnames:u27732
   strat:wasDefinedBy <https://orcid.org/0000-1111-2222-3333> ;
   dct:identifier \"27732\" ;
   dct:title \"Campaspe Formation\" ;
-  geo:hasGeometry <https://gds.loci.cat/geometry/stratnames/u27732> ;
   rdfs:label \"Campaspe Formation\" ;
 .
 """ ;
@@ -225,6 +232,13 @@ strat:contains
   a owl:ObjectProperty ;
   rdfs:label "contains"@en ;
   rdfs:subPropertyOf dcterms:relation ;
+.
+strat:context
+  a owl:ObjectProperty ;
+  rdfs:comment "the context of the relationship" ;
+  rdfs:domain strat:Relationship ;
+  rdfs:label "context" ;
+  rdfs:range strat:Entity ;
 .
 strat:correlatesWith
   a owl:ObjectProperty ;
@@ -776,6 +790,20 @@ rel:unknown
   a owl:NamedIndividual ;
   rdfs:label "unknown" ;
 .
+<http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary>
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:allValuesFrom <http://resource.geosciml.org/ontology/timescale/gts#StratigraphicPoint> ;
+      owl:onProperty <http://resource.geosciml.org/ontology/timescale/gts#stratotype> ;
+    ] ;
+.
+<http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra>
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:allValuesFrom <http://resource.geosciml.org/ontology/timescale/gts#StratigraphicSection> ;
+      owl:onProperty <http://resource.geosciml.org/ontology/timescale/gts#stratotype> ;
+    ] ;
+.
 <http://resource.geosciml.org/ontology/timescale/gts#StratigraphicSection>
   rdfs:subClassOf strat:Section ;
 .
@@ -795,26 +823,6 @@ rel:unknown
         ) ;
     ] ;
   rdfs:subPropertyOf strat:manifestedBy ;
-.
-geo:sfContains
-  rdfs:subPropertyOf strat:contains ;
-.
-geo:sfWithin
-  rdfs:subPropertyOf strat:within ;
-.
-<http://resource.geosciml.org/ontology/timescale/gts#GeochronologicBoundary>
-  rdfs:subClassOf [
-      a owl:Restriction ;
-      owl:allValuesFrom <http://resource.geosciml.org/ontology/timescale/gts#StratigraphicPoint> ;
-      owl:onProperty <http://resource.geosciml.org/ontology/timescale/gts#stratotype> ;
-    ] ;
-.
-<http://resource.geosciml.org/ontology/timescale/gts#GeochronologicEra>
-  rdfs:subClassOf [
-      a owl:Restriction ;
-      owl:allValuesFrom <http://resource.geosciml.org/ontology/timescale/gts#StratigraphicSection> ;
-      owl:onProperty <http://resource.geosciml.org/ontology/timescale/gts#stratotype> ;
-    ] ;
 .
 <http://resource.geosciml.org/ontology/timescale/rank/Age>
   a owl:NamedIndividual ;
@@ -836,4 +844,10 @@ geo:sfWithin
 .
 <http://resource.geosciml.org/ontology/timescale/rank/Super-Eon>
   a owl:NamedIndividual ;
+.
+geo:sfContains
+  rdfs:subPropertyOf strat:contains ;
+.
+geo:sfWithin
+  rdfs:subPropertyOf strat:within ;
 .
