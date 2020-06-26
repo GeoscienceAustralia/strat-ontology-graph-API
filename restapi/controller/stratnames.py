@@ -45,3 +45,33 @@ ORDER BY ?btime
       "results": arr_strat,
    }
    return response, 200
+
+def get_stratunit_for_province(uri):
+   limit = 2000
+   offset = 0
+   sparql = """\
+PREFIX strat: <http://pid.geoscience.gov.au/def/stratname#>
+select ?stratunit 
+where {{
+	<{p_uri}> a strat:Province .
+    ?stratunit strat:relation <{p_uri}>
+}}
+""".format(p_uri=uri)
+   resp = query_graphdb_endpoint(sparql, limit=limit, offset=offset)
+   arr_strat = []
+   if 'results' not in resp:
+      return resp_object
+   bindings = resp['results']['bindings']
+   for b in bindings:
+      stratunit_uri = b['stratunit']['value']
+      arr_strat.append(stratunit_uri)
+   meta = {
+      'count': len(arr_strat),
+      'offset': offset,
+   }
+   response = {
+      "meta": meta,
+      "results": arr_strat,
+   }
+   return response, 200
+
