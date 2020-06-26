@@ -4,6 +4,9 @@ import requests
 
 def find_at_location(lat, lon, feature_type="any", crs=4326, count=1000, offset=0):
     """
+    This function finds geometries for a given lat-long coord. 
+    It then queries the graphDB to get related features based on 
+    apriori known datatype relationships with the geometry of the features.
     :param lat:
     :type lat: float
     :param lon:
@@ -51,25 +54,29 @@ def find_at_location(lat, lon, feature_type="any", crs=4326, count=1000, offset=
 
     #query triple store for the features with input geom
     for geom_res in r:
-       ### TODO: Replace the following hacky solution
-       #geom_uri = geom_res['geometry'] ##Commenting this out for when the geom uri is stable. 
-       #use the id for now and build a URI
-       geom_uri = "https://gds.loci.cat/geometry/stratnames/u{}".format(geom_res['id'])
-       arrFeatures = fetch_feature_for_geom(geom_uri)
+       arrFeatures = fetch_feature_for_geom(geom_res['geometry'], geom_res['id'],  geom_res['dataset'])
        geom_res['feature'] = arrFeatures
 
     returned_resp = { "meta" : meta, "results": r }
     return returned_resp, 200
 
-def fetch_feature_for_geom(geom_uri, limit=1000, offset=0):
+def fetch_feature_for_geom(geom_uri, local_id, dataset, limit=1000, offset=0):
+   arr_features = []
+   the_geom_uri = geom_uri
+   if dataset == 'province':
+      #A Province has the geometry. A StratUnit hasRelation with Province
+      #So for now return both
+      ### TODO: Replace the following hacky solution
+      #the_geom_uri = geom_uri  ##Commenting this out for when the geom uri is stable. 
+      #use the id for now and build a URI
+      the_geom_uri = "https://gds.loci.cat/geometry/province/p{}".format(local_id)
    sparql = """\
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 select ?feature where {{ 
     ?feature geo:hasGeometry <{g_uri}> .
 }}
-""".format(g_uri=geom_uri)
+""".format(g_uri=the_geom_uri)
    resp = query_graphdb_endpoint(sparql, limit=limit, offset=offset)
-   arr_features = []
    if 'results' not in resp:
       return resp_object
    bindings = resp['results']['bindings']

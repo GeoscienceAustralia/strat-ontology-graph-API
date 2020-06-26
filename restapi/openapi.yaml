@@ -46,7 +46,7 @@ paths:
           content: {}
 
 
-  /stratnames:
+  /stratunit/:
     get:
       summary: Gets all stratnames
       tags:
@@ -56,6 +56,26 @@ paths:
         200:
           description: Success
           content: {}
+
+  /stratunit/province:
+    get:
+      tags:
+      - stratnames 
+      summary: Gets a stratunit for a province
+      operationId: controller.stratnames.get_stratunit_for_province
+      parameters:
+      - name: uri
+        in: query
+        description: Province URI
+        required: true
+        example:  "http://pid.geoscience.gov.au/dataset/stratnames/p20054"
+        schema:
+          type: string
+      responses:
+        200:
+          description: Success
+          content: {}
+
 
   /location/find_at_location:
     get:
