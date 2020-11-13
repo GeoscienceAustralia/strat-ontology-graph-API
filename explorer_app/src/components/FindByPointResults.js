@@ -8,6 +8,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import FindByPointGraphVisualiser from './FindByPointGraphVisualiser';
+import FindByPointStratUnitInfo from './FindByPointStratUnitInfo';
 import Button from "react-bootstrap/Button";
 
 
@@ -280,6 +281,7 @@ export default class FindByPointResults extends Component {
         <div className="mainPageResultListItem" key={index}>
           <div>
               Dataset: {item['dataset']}
+              <FindByPointStratUnitInfo featureSet={item['feature']}/>
               </div>
               <div>
               <Button variant="outline-primary" size="sm" onClick={(e) => here.handleViewGeomClick(e, here.convertLocalGds(item['geometry']))}>
@@ -468,10 +470,7 @@ export default class FindByPointResults extends Component {
             console.log("Error getting ", geom_uri);
             console.log(error)
           }
-          );
-          
-    
-
+        );  
   }
 
   handleFilterRegionType(regionTypeId) {

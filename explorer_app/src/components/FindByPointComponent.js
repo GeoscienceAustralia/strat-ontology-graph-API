@@ -41,7 +41,8 @@ export default class FindByPointComponent extends Component {
     // Explicitly focus the text input using the raw DOM API
     // Note: we're accessing "current" to get the DOM node
     this.setState({
-      latlng: latlng
+      latlng: latlng,
+      locations: []
     });
     console.log("State updated!")
     console.log(this.state)
