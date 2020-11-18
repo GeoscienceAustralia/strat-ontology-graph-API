@@ -1,0 +1,13 @@
+{
+    "http://purl.org/dc/terms/" : "dct",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#" : "rdf",
+    "http://www.w3.org/2000/01/rdf-schema#" : "rdfs",
+    "http://pid.geoscience.gov.au/def/stratname#" : "stratname-def",
+    "http://www.w3.org/2006/time#" : "time",
+    "http://www.w3.org/2004/02/skos/core#" : "skos",
+    "http://pid.geoscience.gov.au/dataset/stratnames/": "stratnames",
+    "http://pid.geoscience.gov.au/agent/": "ga-agent",
+    "http://resource.geosciml.org/classifier/ics/ischart/": "ischart",
+    "http://pid.geoscience.gov.au/def/stratname/lithology/": "stratname-lithology",
+    "http://pid.geoscience.gov.au/def/stratname/process/": "stratname-process"
+}

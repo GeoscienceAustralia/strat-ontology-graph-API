@@ -20,13 +20,15 @@ class FindByPointStratUnitInfo extends Component {
     }
     componentDidMount() {
       var featureUri = null;
-      if(this.props.featureSet.length > 0) {
+      if(this.props.featureSet != null) {
+        if(this.props.featureSet.length > 0) {
           //take the first one
           featureUri = this.props.featureSet[0];
+        }
+        if(featureUri != null) {
+            this.handleFetchProvinceData(featureUri);
+        }        
       }
-      if(featureUri != null) {
-          this.handleFetchProvinceData(featureUri);
-      }        
     };
     componentWillUnmount() {
       if(this.state.isFetching) {
@@ -35,7 +37,6 @@ class FindByPointStratUnitInfo extends Component {
       //controller.abort();
     };
     handleCancelFetches() {
-
     };
     handleFetchProvinceData(provinceUri) {   
         var ctx = this;
@@ -76,7 +77,7 @@ class FindByPointStratUnitInfo extends Component {
             <Row>
               <Col sm={12} className="fullheight-results-province-stratunit"> 
                 <p>dc:identifier: {label}</p>
-                <FindByPointStratUnitInfoStratnames provinceStratunitDataIdx={provinceStratunitDataIdx}/>
+                <FindByPointStratUnitInfoStratnames displayFeatureFn={this.props.displayFeatureFn} provinceStratunitDataIdx={provinceStratunitDataIdx}/>
               </Col>              
             </Row>
           </div>

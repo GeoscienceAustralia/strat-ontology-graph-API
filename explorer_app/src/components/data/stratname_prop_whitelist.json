@@ -1,0 +1,29 @@
+{
+    "summary_info" : [
+        "http://purl.org/dc/terms/identifier",
+        "http://purl.org/dc/terms/publisher",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "http://www.w3.org/2000/01/rdf-schema#label",
+        "http://pid.geoscience.gov.au/def/stratname#wasDefinedBy"
+    ],
+    "graph_visualisation" : [
+        "http://pid.geoscience.gov.au/def/stratname#bottomAge",
+        "http://pid.geoscience.gov.au/def/stratname#formationProcess",
+        "http://pid.geoscience.gov.au/def/stratname#lithology",
+        "http://pid.geoscience.gov.au/def/stratname#qualifiedRelation",
+        "http://pid.geoscience.gov.au/def/stratname#relation",
+        "http://pid.geoscience.gov.au/def/stratname#topAge",
+        "http://pid.geoscience.gov.au/def/stratname#wasDefinedBy",
+        "http://www.w3.org/2006/time#hasBeginning",
+        "http://www.w3.org/2006/time#hasEnd",
+        "http://www.w3.org/2006/time#intervalContains",
+        "http://www.w3.org/2006/time#intervalFinishedBy",
+        "http://www.w3.org/2006/time#intervalFinishes",
+        "http://www.w3.org/2006/time#intervalIn",
+        "http://www.w3.org/2006/time#intervalMetBy",
+        "http://www.w3.org/2006/time#intervalStartedBy",
+        "http://www.w3.org/2004/02/skos/core#broader",
+        "http://www.w3.org/2004/02/skos/core#broaderTransitive",
+        "http://www.w3.org/2004/02/skos/core#narrower"
+    ]
+}
