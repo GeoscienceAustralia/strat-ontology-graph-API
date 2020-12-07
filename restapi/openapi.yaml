@@ -8,8 +8,8 @@ servers:
 tags:
 - name: default
   description: Default namespace
-- name: stratnames
-  description: Stratnames
+- name: stratunits
+  description: stratunits
 - name: loc-func
   description: Location
 
@@ -46,23 +46,43 @@ paths:
           content: {}
 
 
-  /stratnames:
+  /stratunit/:
     get:
-      summary: Gets all stratnames
+      summary: Gets all stratunits
       tags:
-      - stratnames 
+      - stratunits 
       operationId: controller.stratnames.get
       responses:
         200:
           description: Success
           content: {}
 
+  /stratunit/province:
+    get:
+      tags:
+      - stratunits 
+      summary: Gets a stratunit for a province
+      operationId: controller.stratnames.get_stratunit_for_province
+      parameters:
+      - name: uri
+        in: query
+        description: Province URI
+        required: true
+        example:  "http://pid.geoscience.gov.au/dataset/stratnames/p20054"
+        schema:
+          type: string
+      responses:
+        200:
+          description: Success
+          content: {}
+
+
   /location/find_at_location:
     get:
       responses:
         '200':
           description: Success
-      summary: 'Finds all LOCI features that intersect with this location, specified by the coordinates'
+      summary: 'Finds all features that intersect with this location, specified by the coordinates'
       description: 'Note: count and offset do not currently work properly on /overlaps'
       operationId: controller.location.find_at_location
       parameters:
@@ -110,4 +130,59 @@ paths:
       security: []
       tags:
         - loc-func
+
+  /location/find_stratunit_at_location:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: 'Finds all StratUnit features that intersect with this location (via Provinces), specified by the coordinates'
+      description: 'Note: count and offset do not currently work properly on /overlaps'
+      operationId: controller.location.find_stratunit_at_location
+      parameters:
+        - name: lat
+          description: Query point latitude
+          required: true
+          example: -35.27
+          in: query
+          schema:
+            type: number
+            format: float            
+        - name: lon
+          required: true
+          in: query
+          example: 149.09
+          schema:
+            type: number
+            format: float
+        - name: crs
+          description: Query point CRS. Default is 4326 (WGS 84)
+          required: false
+          example: "4326"
+          schema:
+            default: "4326"
+            type: string
+          in: query
+        - description: Number of locations to return.
+          required: false
+          name: count
+          example: 1000
+          in: query
+          schema:
+            type: number
+            format: integer
+            default: 1000
+        - description: Skip number of locations before returning count.
+          required: false
+          name: offset
+          example: 0
+          in: query
+          schema:
+            type: number
+            format: integer
+            default: 0
+      security: []
+      tags:
+        - loc-func
+
 

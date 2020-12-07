@@ -17,7 +17,20 @@ $ ./startup-graphdb.sh --local-build
 $ docker-compose -f docker-compose.gds.yml up -d --build
 ```
 
-3. Bring up the REST API
+3. Bring up the REST API and Explorer app
+
+If need be, edit the `explorer_app/.env` file and update the
+`REACT_APP_STRATNAMES_API_ENDPOINT` or `REACT_APP_GDS_TO_URL_PREFIX`.
+If only testing the REST API - ignore this bit.
+`REACT_APP_STRATNAMES_API_ENDPOINT` should point to a resolvable
+stratnames REST API endpoint (with the actual API because your 
+browser will be resolving the URL at client side).
+`REACT_APP_GDS_TO_URL_PREFIX` similarly will need to point to the 
+GDS instance resolvable at client side, so use an IP that will 
+work.
+
+Then run the following to bring up the REST API and explorer app.
+
 ```
 $ docker-compose -f docker-compose.api.yml up -d --build
 ```
