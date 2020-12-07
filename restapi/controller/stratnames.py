@@ -51,10 +51,12 @@ def get_stratunit_for_province(uri):
    offset = 0
    sparql = """\
 PREFIX strat: <http://pid.geoscience.gov.au/def/stratname#>
-select ?stratunit 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select ?stratunit ?label
 where {{
 	<{p_uri}> a strat:Province .
-    ?stratunit strat:relation <{p_uri}>
+    ?stratunit strat:relation <{p_uri}> .
+    ?stratunit rdfs:label ?label
 }}
 """.format(p_uri=uri)
    resp = query_graphdb_endpoint(sparql, limit=limit, offset=offset)
@@ -64,7 +66,12 @@ where {{
    bindings = resp['results']['bindings']
    for b in bindings:
       stratunit_uri = b['stratunit']['value']
-      arr_strat.append(stratunit_uri)
+      stratunit_label = b['label']['value']
+      obj = {
+          'uri' : stratunit_uri,
+          'label' : stratunit_label
+      }
+      arr_strat.append(obj)
    meta = {
       'count': len(arr_strat),
       'offset': offset,
