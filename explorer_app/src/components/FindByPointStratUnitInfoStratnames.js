@@ -25,8 +25,9 @@ class FindByPointStratUnitInfoStratnames extends Component {
           }
         </div>
         */
+       const here = this;
        const liItems =  sortable.map((item) => ( 
-       <li key={item[1]}><a href="#">{item[0]} : {item[1]}</a></li>        
+       <li key={item[1]}><a href="#" onClick={(e) => here.props.displayFeatureFn(e, item[1])}>{item[0]} : {item[1]}</a></li>        
         ));
         return (
           <Accordion defaultActiveKey="0">            

@@ -96,6 +96,19 @@ export default class MainPageResultComponent extends Component {
     });
   }
 
+  fetchAdditionalResource(uri, callback) {
+    fetch(process.env.REACT_APP_STRATNAMES_API_ENDPOINT + "/resource?uri=" + uri)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            callback(result)
+          },
+          (error) => {
+            console.log("Error fetching " + uri)
+          }
+        );    
+  }
+
   renderCurrentGeom() {
     fetch(process.env.REACT_APP_STRATNAMES_API_ENDPOINT + "/resource?uri=" + this.props.location_uri)
         .then(res => res.json())
@@ -198,7 +211,7 @@ export default class MainPageResultComponent extends Component {
     return final_val;
   }
 
-  updateFeatureInfo(data) {
+  preprocessResourceData(data) {
     var summary_info_whitelisted_items = [];
     var graph_whitelisted_items = []; 
     const here = this;
@@ -219,17 +232,92 @@ export default class MainPageResultComponent extends Component {
         });
       }
     });
+    return {
+      'summary_info_whitelisted_items' : summary_info_whitelisted_items,
+      'graph_whitelisted_items' : graph_whitelisted_items
+    }
+  }
+  updateFeatureInfo(data) {    
+    const processedData = this.preprocessResourceData(data);
+    const summary_info_whitelisted_items =processedData['summary_info_whitelisted_items'];
+    const graph_whitelisted_items = processedData['graph_whitelisted_items'];
+    const here = this;
 
-    
     var thisFeatureInfo = {};
     summary_info_whitelisted_items.forEach(function(item, index) {
       thisFeatureInfo[item["prefixed_prop"]] =  here.resolvePrefix(item["value"]);
     });
 
     var thisFeatureRelationsInfo = {};
+    var arrSecondHopItems =  [];
+    var nodeIdx = {}
     graph_whitelisted_items.forEach(function(item, index) {
-      thisFeatureRelationsInfo[item["prefixed_prop"]] = here.resolvePrefix(item["value"]);
+      //check if the prop does not exists, create the array
+      if (! (item["prefixed_prop"] in thisFeatureRelationsInfo))  {
+        thisFeatureRelationsInfo[item["prefixed_prop"]] = [] ;           
+      }
+      thisFeatureRelationsInfo[item["prefixed_prop"]].push(
+          {
+            "label" : here.resolvePrefix(item["value"]),
+            "uri" : item["value"],
+            "properties" : {}
+          }
+      );
+      
+      //pick out the second hop relations
+      if(STRATNAME_PROP_WHITELIST.second_hop_relations.includes(item["prop"])) {
+
+        arrSecondHopItems.push({
+                                "property" : item['prop'],
+                                "prefixed_property" : item['prefixed_prop'],
+                                "value" : item["value"]
+                              }
+                );
+      }
     });
+
+    //fetch each set of second hop item, fetch resource data
+    arrSecondHopItems.forEach(function(secondHopItem, index) {
+      const theUri = secondHopItem['value'];
+      const theProp = secondHopItem['prefixed_property'];
+      here.fetchAdditionalResource(theUri, function(resourceData) {
+        const thisProcessedResData = here.preprocessResourceData(resourceData);
+        //get the featureRelation item
+        const arrFeaturesForProp = thisFeatureRelationsInfo[theProp];
+        arrFeaturesForProp.forEach(function(f, index) {
+          if(f['uri'] == theUri) {
+
+            thisProcessedResData['graph_whitelisted_items'].forEach(function(whitelistedItem, index) {
+              //check if the property already exists, if so just add to array
+              if( !(whitelistedItem['prefixed_prop'] in f['properties']) ) {
+                //add the array
+                f['properties'][whitelistedItem['prefixed_prop']] = [];
+              }
+              f['properties'][whitelistedItem['prefixed_prop']].push({
+                "label" : here.resolvePrefix(whitelistedItem['value']),
+                "uri" : whitelistedItem['value'],
+                "properties" : {}
+              });
+            })
+          }
+        });
+        here.setState({
+          featureRelationsInfo: thisFeatureRelationsInfo
+        })
+      });
+      /*
+      fetchAdditionalResource(qRelUri, function(resourceData) {
+        //process the graph for relationships only
+    graph_whitelisted_items.forEach(function(item, index) {
+          //get the qualifiedRelation
+
+      thisFeatureRelationsInfo[item["prefixed_prop"]] = here.resolvePrefix(item["value"]);
+          
+    });
+      });
+      */
+    });
+
 
     this.setState({
       featureInfo: thisFeatureInfo,
@@ -351,38 +439,79 @@ export default class MainPageResultComponent extends Component {
     var node = rootObj;
     var childCount = 0;
     var links = [];
+    const here = this;
 
-    var graphData = {}
-    graphData['links'] = [];
-    graphData['nodes'] = [];
+    var struct = {};
+    struct['graphData'] = {};
+    struct['idx'] = {};
 
-    var idx = {};
 
-    graphData['nodes'].push(rootObj);
+    struct['graphData']['links'] = [];
+    struct['graphData']['nodes'] = [];
+    struct['graphData']['nodes'].push(rootObj);
 
-    for (let key in featureRelationsInfo) {
-      var currNode = {
-        'name': featureRelationsInfo[key],
-        'label': featureRelationsInfo[key],
-        'children': []
-      }
+    for (let prop in featureRelationsInfo) {
+      const arrNodesForProp = featureRelationsInfo[prop];
+      //there can be multiple nodes for each property
+      arrNodesForProp.forEach(function(c, index) {
+        var currNode = {
+          'name': c['label'],
+          'label': c['label']
+        }
+  
+        if (!(currNode['name'] in struct['idx'])) {
+          struct['graphData']['nodes'].push(currNode);
+          struct['idx'][currNode['name']] = 1;
+        }
+        
+        struct['graphData']['links'].push({
+          "source": node['name'],
+          "target": c['label'],
+          "label" : prop
+        });
 
-      if (!(currNode['name'] in idx)) {
-        graphData['nodes'].push(currNode)
-        idx[currNode['name']] = 1
-      }
-      
-      graphData['links'].push({
-        "source": node['name'],
-        "target": featureRelationsInfo[key],
-        "label" : key
-      });
-      
-    }      
-
-    return graphData;
+        if(Object.keys(c['properties']).length > 0) {
+          console.log("we have children!!");
+          console.log(c['properties']);        
+          struct = here.iterateNodesForProp(struct, c['properties'], currNode);
+        }
+      });      
+    }   
+    return struct['graphData'];   
   }
 
+  iterateNodesForProp(datastructure, currProperties, sourceNode) {
+      const here = this;
+      for (let prop in currProperties) {
+        const arrNodesForProp = currProperties[prop];
+        //there can be multiple nodes for each property
+        arrNodesForProp.forEach(function(c, index) {
+          var currNode = {
+            'name': c['label'],
+            'label': c['label'],
+            'children': []
+          }
+    
+          if (!(currNode['name'] in datastructure['idx'])) {
+            datastructure['graphData']['nodes'].push(currNode);
+            datastructure['idx'][currNode['name']] = 1;
+          }
+          
+          datastructure['graphData']['links'].push({
+            "source": sourceNode['name'],
+            "target": c['label'],
+            "label" : prop
+          });
+
+          if(Object.keys(c['properties']).length > 0) {
+            console.log("we have children!!");
+            console.log(c['properties']);        
+            datastructure = here.iterateNodesForProp(datastructure, c['properties'],  currNode);
+          }
+        });
+      }
+      return datastructure;   
+  }
 
 
   render() {

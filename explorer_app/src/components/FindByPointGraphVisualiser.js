@@ -31,7 +31,7 @@ export default class FindByPointGraphVisualiser extends Component {
 
   updateGraph2(data) {
     const width = 640,
-    height = 600;
+    height = 800;
 
     //Initializing chart
     //d3.select('.chart').html(null);
@@ -53,12 +53,14 @@ export default class FindByPointGraphVisualiser extends Component {
     var colors = d3.scaleOrdinal(d3.schemeCategory10);
     //Initializing force simulation
     
+    /*
     const simulation =     d3.forceSimulation()
-        .force("link", d3.forceLink().id(function (d) {return d.name;}).distance(500).strength(0.5))
+        .force("link", d3.forceLink().id(function (d) {return d.name;}).distance(100).strength(0.5))
         //.force("charge", d3.forceManyBody())
         .force("center", d3.forceCenter(width / 3, height / 2));
-    
-    /* const simulation = d3.forceSimulation()
+    */
+
+     const simulation = d3.forceSimulation()
         .force('link', d3.forceLink().id(d =>         
           d.name)
         .distance(500))
@@ -71,7 +73,7 @@ export default class FindByPointGraphVisualiser extends Component {
         .force('center', d3.forceCenter(width / 2, height / 2))
         .force("y", d3.forceY(0))
         .force("x", d3.forceX(0));
-        */
+        
     const dragstarted = (d) => {
       if (!d3.event.active) simulation.alphaTarget(0.3).restart()
       d.fx = d.x;

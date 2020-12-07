@@ -14,6 +14,9 @@
         "http://pid.geoscience.gov.au/def/stratname#relation",
         "http://pid.geoscience.gov.au/def/stratname#topAge",
         "http://pid.geoscience.gov.au/def/stratname#wasDefinedBy",
+        "http://pid.geoscience.gov.au/def/stratname#context",
+        "http://pid.geoscience.gov.au/def/stratname#relationshipType",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "http://www.w3.org/2006/time#hasBeginning",
         "http://www.w3.org/2006/time#hasEnd",
         "http://www.w3.org/2006/time#intervalContains",
@@ -25,5 +28,8 @@
         "http://www.w3.org/2004/02/skos/core#broader",
         "http://www.w3.org/2004/02/skos/core#broaderTransitive",
         "http://www.w3.org/2004/02/skos/core#narrower"
+    ],
+    "second_hop_relations" : [
+        "http://pid.geoscience.gov.au/def/stratname#qualifiedRelation"
     ]
 }

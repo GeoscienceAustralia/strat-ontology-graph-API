@@ -9,5 +9,6 @@
     "http://pid.geoscience.gov.au/agent/": "ga-agent",
     "http://resource.geosciml.org/classifier/ics/ischart/": "ischart",
     "http://pid.geoscience.gov.au/def/stratname/lithology/": "stratname-lithology",
-    "http://pid.geoscience.gov.au/def/stratname/process/": "stratname-process"
+    "http://pid.geoscience.gov.au/def/stratname/process/": "stratname-process",
+    "http://pid.geoscience.gov.au/def/stratname/relation/" : "strat-relation"
 }
