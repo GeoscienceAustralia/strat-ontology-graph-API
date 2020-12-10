@@ -10,7 +10,17 @@ import Tab from "react-bootstrap/Tab";
 import FindByPointGraphVisualiser from './FindByPointGraphVisualiser';
 import proj from 'proj4';
 import * as jsonld from 'jsonld';
+import Button from "react-bootstrap/Button";
+import FindByPointStratUnitInfo from './FindByPointStratUnitInfo';
+import STRATNAME_PROP_WHITELIST from './data/stratname_prop_whitelist.json';
+import PREFIXES from './data/prefixes.json'
 
+const NAMESPACE_IDX = {
+  'ttp://www.w3.org/2000/01/rdf-schema#' :'rdfs',
+  'http://pid.geoscience.gov.au/def/stratname#' : 'stratname',
+  'http://purl.org/dc/terms/' : 'dct',
+  'http://www.w3.org/1999/02/22-rdf-syntax-ns#' : 'rdf',
+}
 
 
 export default class MainPageResultComponent extends Component {
@@ -18,6 +28,7 @@ export default class MainPageResultComponent extends Component {
     super(props)
 
     this.state = {
+      hideMe: false,
       contextLocationLookups: {},
       location_uri: this.props.location_uri,
       locationResourceData: {},
@@ -25,17 +36,77 @@ export default class MainPageResultComponent extends Component {
         "@id" : "",
         "rdfs:label" : "",
         "@type" : "",
-      }
+      },
+      featureRelationsInfo: {}
     }
 
   }
 
   componentDidMount() {
-    this.renderCurrentGeom();
+    //this.renderCurrentGeom();
+    this.updateResourceInfo();
+
+    this.setState({
+      hideMe: this.props.hideMe,
+      contextLocationLookups: {},
+      location_uri: this.props.location_uri
+    });
+  }
+  componentDidUpdate() {
+    if(this.props.hideMe != this.state.hideMe) {
+      this.setState({
+        hideMe: this.props.hideMe
+      });
+    }
+    if(this.props.location_uri != this.state.location_uri) {
+      //this.renderCurrentGeom();
+      this.updateResourceInfo();
+
+      this.setState( {
+        location_uri: this.props.location_uri
+      })
+    }    
+  }
+  
+
+  updateResourceInfo() {
+    fetch(process.env.REACT_APP_STRATNAMES_API_ENDPOINT + "/resource?uri=" + this.props.location_uri)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              isLoaded: true,
+              locationResourceData: result
+            });
+            this.updateFeatureInfo(result);
+          },
+          // Note: it's important to handle errors here
+          // instead of a catch() block so that we don't swallow
+          // exceptions from actual bugs in components.
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+        );
     this.setState({
       contextLocationLookups: {},
       location_uri: this.props.location_uri
     });
+  }
+
+  fetchAdditionalResource(uri, callback) {
+    fetch(process.env.REACT_APP_STRATNAMES_API_ENDPOINT + "/resource?uri=" + uri)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            callback(result)
+          },
+          (error) => {
+            console.log("Error fetching " + uri)
+          }
+        );    
   }
 
   renderCurrentGeom() {
@@ -65,16 +136,7 @@ export default class MainPageResultComponent extends Component {
     });
   }
 
-  componentDidUpdate() {
-    if(this.props.location_uri != this.state.location_uri) {
-      this.renderCurrentGeom();
-
-      this.setState( {
-        location_uri: this.props.location_uri
-      })
-    }
-    
-  }
+  
 
   convertTreeObjToD3Data(parent, node, graphData, idx = {}) {
     var curr = {
@@ -138,93 +200,130 @@ export default class MainPageResultComponent extends Component {
        });
   }
 
-  
-  callbackFunction = (uri, relation, data) => {
-    console.log(uri);
-    console.log(relation);
-    console.log(data);
-
-    var curr = this.state.contextLocationLookups;
-
-    if (!(uri in curr)) {
-      curr[uri] = {};
-    }
-    if (!(relation in curr[uri])) {
-      curr[uri][relation] = {};
-    }
-    curr[uri][relation] = data;
-
-    //fetch the geometry info
-    //TODO: Replace workaround
-    var thiscls = this;
-    var proxy_uri = "https://cors-proxy.loci.cat/" + uri
-    fetch(proxy_uri, {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Accept": "application/ld+json",
-        "origin" : "explorer.loci.cat",
-        "x-requested-with" : "explorer"
+  resolvePrefix(value) {
+    var final_val = value;
+    Object.keys(PREFIXES).forEach(function(prefix) {
+      if(value.startsWith(prefix)) {
+        const replaced = PREFIXES[prefix] + ":";
+        final_val = value.replace(prefix, replaced);
       }
-    }).then(function(response) {
-      return response.json();
-    })
-    .then(function(json) {
-      console.log('Request successful', json);
-      const compacted =  jsonld.compact(json, 'https://loci.cat/json-ld/loci-context.jsonld')
-      //const compacted =  jsonld.compact(json, 'https://raw.githubusercontent.com/CSIRO-enviro-informatics/loci.cat/gh-pages/json-ld/loci-context.jsonld')
-        .then(function(compacted) {
-          console.log(JSON.stringify(compacted, null, 2));
-          thiscls.updateFeatureInfo(compacted);
-        });
-    })
-    .catch(function(error) {
-      console.log('Request failed', error)
     });
-
-    this.setState({
-      contextLocationLookups: curr
-    })
+    return final_val;
   }
 
-  updateFeatureInfo(data) {
-    var thisFeatureInfo = {
-      "@id" : "",
-      "rdfs:label" : "",
-      "@type" : "",      
+  preprocessResourceData(data) {
+    var summary_info_whitelisted_items = [];
+    var graph_whitelisted_items = []; 
+    const here = this;
+    //iterate through list of properties and check whitelist
+    Object.keys(data).forEach(function(prop) {
+      if(STRATNAME_PROP_WHITELIST.summary_info.includes(prop)) {
+        summary_info_whitelisted_items.push({  
+            "prop" : prop, 
+            "prefixed_prop" : here.resolvePrefix(prop),
+            "value" : data[prop] 
+        });
+      }
+      if(STRATNAME_PROP_WHITELIST.graph_visualisation.includes(prop)) {
+        graph_whitelisted_items.push({  
+            "prop" : prop, 
+            "prefixed_prop" : here.resolvePrefix(prop),
+            "value" : data[prop] 
+        });
+      }
+    });
+    return {
+      'summary_info_whitelisted_items' : summary_info_whitelisted_items,
+      'graph_whitelisted_items' : graph_whitelisted_items
     }
+  }
+  updateFeatureInfo(data) {    
+    const processedData = this.preprocessResourceData(data);
+    const summary_info_whitelisted_items =processedData['summary_info_whitelisted_items'];
+    const graph_whitelisted_items = processedData['graph_whitelisted_items'];
+    const here = this;
 
-    var featureIdx = {};
-    var featureTypeWhiteList = [
-      'gnaf:Address', 'gnaf:StreetLocality', 'gnaf:Locality', 
-      'asgs:StatisticalAreaLevel1', 'asgs:StatisticalAreaLevel2', 'asgs:StatisticalAreaLevel3', 'asgs:StatisticalAreaLevel4', 
-      'asgs:MeshBlock', 'asgs:StateOrTerritory', 'asgs:SignificantUrbanArea', 'asgs:GreaterCapitalCityStatisticalArea', 
-      'asgs:RemotenessArea', 'asgs:IndigenousLocation', 'asgs:IndigenousArea', 'asgs:IndigenousRegion', 
-      'asgs:UrbanCentreAndLocality', 'asgs:SectionOfStateRange', 'asgs:SectionOfState', 
-      'asgs:LocalGovernmentArea', 'asgs:CommonwealthElectoralDivision', 'asgs:StateSuburb', 'asgs:NaturalResourceManagementRegion', 
-      'geofabric:ContractedCatchment', 'geofabric:RiverRegion', 'geofabric:DrainageDivision'      
-    ]
+    var thisFeatureInfo = {};
+    summary_info_whitelisted_items.forEach(function(item, index) {
+      thisFeatureInfo[item["prefixed_prop"]] =  here.resolvePrefix(item["value"]);
+    });
 
-    data["@graph"].map((item) => {
-      featureIdx[item["@id"]] = item;
-
-      if(item['@id'] == this.state.location_uri) {
-        thisFeatureInfo = item; 
+    var thisFeatureRelationsInfo = {};
+    var arrSecondHopItems =  [];
+    var nodeIdx = {}
+    graph_whitelisted_items.forEach(function(item, index) {
+      //check if the prop does not exists, create the array
+      if (! (item["prefixed_prop"] in thisFeatureRelationsInfo))  {
+        thisFeatureRelationsInfo[item["prefixed_prop"]] = [] ;           
       }
+      thisFeatureRelationsInfo[item["prefixed_prop"]].push(
+          {
+            "label" : here.resolvePrefix(item["value"]),
+            "uri" : item["value"],
+            "properties" : {}
+          }
+      );
+      
+      //pick out the second hop relations
+      if(STRATNAME_PROP_WHITELIST.second_hop_relations.includes(item["prop"])) {
+
+        arrSecondHopItems.push({
+                                "property" : item['prop'],
+                                "prefixed_property" : item['prefixed_prop'],
+                                "value" : item["value"]
+                              }
+                );
+      }
+    });
+
+    //fetch each set of second hop item, fetch resource data
+    arrSecondHopItems.forEach(function(secondHopItem, index) {
+      const theUri = secondHopItem['value'];
+      const theProp = secondHopItem['prefixed_property'];
+      here.fetchAdditionalResource(theUri, function(resourceData) {
+        const thisProcessedResData = here.preprocessResourceData(resourceData);
+        //get the featureRelation item
+        const arrFeaturesForProp = thisFeatureRelationsInfo[theProp];
+        arrFeaturesForProp.forEach(function(f, index) {
+          if(f['uri'] == theUri) {
+
+            thisProcessedResData['graph_whitelisted_items'].forEach(function(whitelistedItem, index) {
+              //check if the property already exists, if so just add to array
+              if( !(whitelistedItem['prefixed_prop'] in f['properties']) ) {
+                //add the array
+                f['properties'][whitelistedItem['prefixed_prop']] = [];
+              }
+              f['properties'][whitelistedItem['prefixed_prop']].push({
+                "label" : here.resolvePrefix(whitelistedItem['value']),
+                "uri" : whitelistedItem['value'],
+                "properties" : {}
+              });
+            })
+          }
+        });
+        here.setState({
+          featureRelationsInfo: thisFeatureRelationsInfo
+        })
+      });
       /*
-      if('@type' in item){ 
-        console.log(item['@type']);
-        if(featureTypeWhiteList.includes(item['@type'])) {
-          thisFeatureInfo = item;        
-        }
-      }
+      fetchAdditionalResource(qRelUri, function(resourceData) {
+        //process the graph for relationships only
+    graph_whitelisted_items.forEach(function(item, index) {
+          //get the qualifiedRelation
+
+      thisFeatureRelationsInfo[item["prefixed_prop"]] = here.resolvePrefix(item["value"]);
+          
+    });
+      });
       */
-    })
+    });
 
 
     this.setState({
-      featureInfo: thisFeatureInfo
+      featureInfo: thisFeatureInfo,
+      featureRelationsInfo: thisFeatureRelationsInfo
     })
+
   }
 
   loadGeom(location_resource) {
@@ -322,13 +421,144 @@ export default class MainPageResultComponent extends Component {
 
   }
 
-  render() {
+  
+  handleBackBtn = (e) => {
+    this.props.callbackReturnToResultsFn();
+  }
 
-    var uri = this.state.location_uri
+
+  buildGraph(uri, featureRelationsInfo, contextLocationLookups) {
+    var rootObj = {
+      'fixed': true,
+      "isRoot" : true,
+      'children': [],
+      'name': uri,
+      'label': uri,
+      'children': []
+    };
+    var node = rootObj;
+    var childCount = 0;
+    var links = [];
+    const here = this;
+
+    var struct = {};
+    struct['graphData'] = {};
+    struct['idx'] = {};
+
+
+    struct['graphData']['links'] = [];
+    struct['graphData']['nodes'] = [];
+    struct['graphData']['nodes'].push(rootObj);
+
+    for (let prop in featureRelationsInfo) {
+      const arrNodesForProp = featureRelationsInfo[prop];
+      //there can be multiple nodes for each property
+      arrNodesForProp.forEach(function(c, index) {
+        var currNode = {
+          'name': c['label'],
+          'label': c['label']
+        }
+  
+        if (!(currNode['name'] in struct['idx'])) {
+          struct['graphData']['nodes'].push(currNode);
+          struct['idx'][currNode['name']] = 1;
+        }
+        
+        struct['graphData']['links'].push({
+          "source": node['name'],
+          "target": c['label'],
+          "label" : prop
+        });
+
+        if(Object.keys(c['properties']).length > 0) {
+          console.log("we have children!!");
+          console.log(c['properties']);        
+          struct = here.iterateNodesForProp(struct, c['properties'], currNode);
+        }
+      });      
+    }   
+    return struct['graphData'];   
+  }
+
+  iterateNodesForProp(datastructure, currProperties, sourceNode) {
+      const here = this;
+      for (let prop in currProperties) {
+        const arrNodesForProp = currProperties[prop];
+        //there can be multiple nodes for each property
+        arrNodesForProp.forEach(function(c, index) {
+          var currNode = {
+            'name': c['label'],
+            'label': c['label'],
+            'children': []
+          }
+    
+          if (!(currNode['name'] in datastructure['idx'])) {
+            datastructure['graphData']['nodes'].push(currNode);
+            datastructure['idx'][currNode['name']] = 1;
+          }
+          
+          datastructure['graphData']['links'].push({
+            "source": sourceNode['name'],
+            "target": c['label'],
+            "label" : prop
+          });
+
+          if(Object.keys(c['properties']).length > 0) {
+            console.log("we have children!!");
+            console.log(c['properties']);        
+            datastructure = here.iterateNodesForProp(datastructure, c['properties'],  currNode);
+          }
+        });
+      }
+      return datastructure;   
+  }
+
+
+  render() {
+    var uri = this.state.location_uri;
+    var featureRelationsInfo = this.state.featureRelationsInfo;
     var contextLocationLookups = this.state.contextLocationLookups;
 
-    var graphData = { "nodes": [], "links": [] };
+    //var graphData = { "nodes": [], "links": [] };
+    var graphData = this.buildGraph(uri, featureRelationsInfo, contextLocationLookups);
 
+    //console.log(rootObj);
+    //graphData = this.convertTreeObjToD3Data(null, rootObj, graphData, {});
+    //console.log(graphData);
+
+    var here = this;
+    var divMain = (
+      <div className="overflow-auto">
+            <div id="stratname-graph"><FindByPointGraphVisualiser graphData={graphData} callback={this.props.renderResultSummaryFn} /></div>
+      </div>
+    );
+    var here = this;
+
+    return (
+      !this.state.hideMe && 
+      <Container>
+        <Row>
+          <Col sm={12} className="fullheight-results-main">
+            <Button variant="outline-primary" size="sm" onClick={(e) => here.handleBackBtn(e)}>
+                Back
+            </Button>
+            <div class="summaryResultTitle"> Showing summary for feature: <a href={uri}>{uri}</a> 
+            </div>
+            <div>
+              <FeatureInfoItem item={this.state.featureInfo}/>
+            </div>
+            {divMain}
+
+
+          </Col>
+        </Row>
+      </Container >
+    )
+  }
+
+
+
+  buildGraphOld(uri, contextLocationLookups) {
     var rootObj = {
       'class': "root",
       'fixed': true,
@@ -404,32 +634,8 @@ export default class MainPageResultComponent extends Component {
     node.children.push(containChild)
     node.children.push(overlapChild)    
 
-    console.log(rootObj);
-    graphData = this.convertTreeObjToD3Data(null, rootObj, graphData, {});
-    console.log(graphData);
-
-    var here = this;
-    var divMain = (
-      <div className="overflow-auto">
-            <div><FindByPointGraphVisualiser graphData={graphData} callback={this.props.renderResultSummaryFn} /></div>
-      </div>
-    );
-
-    return (
-      <Container>
-        <Row>
-          <Col sm={12} className="fullheight-results-main">
-            <div class="summaryResultTitle"> Showing summary for Loc-I feature: <a href={uri}>{uri}</a> 
-            </div>
-            <div>
-              <FeatureInfoItem item={this.state.featureInfo}/>
-            </div>
-            {divMain}
-
-
-          </Col>
-        </Row>
-      </Container >
-    )
+    return rootObj;
   }
 }
+
+

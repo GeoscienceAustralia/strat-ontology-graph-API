@@ -24,7 +24,9 @@ export default class FindByPointComponent extends Component {
       findByPointMode: false,
       searchQuery: "",
       curr_location_uri: null,
-      geometryGeojsonData: null
+      geometryGeojsonData: null,
+      resultsHidden: true,
+      featureInfoHidden: true
     }
     this.updateResult = this.updateResult.bind(this);
 
@@ -41,7 +43,8 @@ export default class FindByPointComponent extends Component {
     // Explicitly focus the text input using the raw DOM API
     // Note: we're accessing "current" to get the DOM node
     this.setState({
-      latlng: latlng
+      latlng: latlng,
+      locations: []
     });
     console.log("State updated!")
     console.log(this.state)
@@ -113,6 +116,8 @@ export default class FindByPointComponent extends Component {
   performFindAtPoint = (d) => {
     this.setState({
       resultsMode: "FIND_AT_POINT",
+      resultsHidden: false,
+      featureInfoHidden: true
     });
   }
 
@@ -127,7 +132,17 @@ export default class FindByPointComponent extends Component {
     //this.setState({message: childData})
     this.setState({
       resultsMode: "RESULT_SUMMARY",
-      curr_location_uri: uri
+      curr_location_uri: uri,
+      resultsHidden: true,
+      featureInfoHidden: false
+    });
+  }
+
+  callbackReturnToResultsFn = () => {
+    this.setState({
+      resultsMode: "FIND_AT_POINT",
+      resultsHidden: false,
+      featureInfoHidden: true
     });
   }
 
@@ -143,16 +158,48 @@ export default class FindByPointComponent extends Component {
     }
 
     var componentToLoad;
+    /*
     if (this.state.resultsMode == "FIND_AT_POINT") {      
-      componentToLoad = (<FindByPointResults latlng={ll} locations={locations} count={numLoc} renderSelectedGeometryFn={this.renderSelectedGeometryFn} renderResultSummaryFn={this.renderResultSummaryFn}/>)
+      componentToLoad = (<FindByPointResults 
+                          hideMe={this.state.resultsHidden} 
+                          latlng={ll} 
+                          locations={locations} 
+                          count={numLoc} 
+                          renderSelectedGeometryFn={this.renderSelectedGeometryFn} 
+                          renderResultSummaryFn={this.renderResultSummaryFn}/>)
     }
     else if (this.state.resultsMode == "RESULT_SUMMARY") {
-      componentToLoad = (<MainPageResultComponent location_uri={this.state.curr_location_uri} renderSelectedGeometryFn={this.renderSelectedGeometryFn} renderResultSummaryFn={this.renderResultSummaryFn}/>)
+      componentToLoad = (<MainPageResultComponent 
+                            hideMe={this.state.featureInfoHidden}
+                            location_uri={this.state.curr_location_uri} 
+                            renderSelectedGeometryFn={this.renderSelectedGeometryFn} 
+                            renderResultSummaryFn={this.renderResultSummaryFn}
+                            callbackReturnToResultsFn={this.callbackReturnToResultsFn}
+                            />)
     }
     else { //default is an empty div
       componentToLoad = (<div></div>)
     }
-
+    */
+    var style = {};
+    if (!this.state.show) {
+        style.display = 'none'
+    }
+    var results = (<FindByPointResults 
+                    hideMe={this.state.resultsHidden} 
+                    latlng={ll} 
+                    locations={locations} 
+                    count={numLoc} 
+                    renderSelectedGeometryFn={this.renderSelectedGeometryFn} 
+                    renderResultSummaryFn={this.renderResultSummaryFn}/>)
+    var featureInfo = (<MainPageResultComponent 
+                          hideMe={this.state.featureInfoHidden}
+                          location_uri={this.state.curr_location_uri} 
+                          renderSelectedGeometryFn={this.renderSelectedGeometryFn} 
+                          renderResultSummaryFn={this.renderResultSummaryFn}
+                          callbackReturnToResultsFn={this.callbackReturnToResultsFn}
+                          />  )
+   
     return (
       <Container fluid='true'>
         <Row>
@@ -162,7 +209,11 @@ export default class FindByPointComponent extends Component {
           <Col sm={6}>
             <Row>
               <Col sm={12}>
-                 {componentToLoad}
+                { results }
+                  
+                { featureInfo }
+                
+                <div></div>        
               </Col>
             </Row>
           </Col>
