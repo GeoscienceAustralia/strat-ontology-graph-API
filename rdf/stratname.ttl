@@ -1,6 +1,6 @@
 # baseURI: http://pid.geoscience.gov.au/def/stratname
 # imports: file:///C:/Users/cox075/dev/cache-external/schema.ttl
-# imports: http://linked.data.gov.au/def/geox
+# imports: https://linked.data.gov.au/def/geox
 # imports: http://purl.org/dc/elements/1.1/
 # imports: http://resource.geosciml.org/ontology/timescale/gts
 # imports: http://www.opengis.net/ont/geosparql
@@ -42,7 +42,7 @@ Variation may be due to the terminating event applying at different times in dif
   schema:codeRepository <https://github.com/GeoscienceAustralia/strat-ontology-graph-API> ;
   rdfs:seeAlso <https://www.ga.gov.au/data-pubs/datastandards/stratigraphic-units> ;
   owl:imports <file:///C:/Users/cox075/dev/cache-external/schema.ttl> ;
-  owl:imports <http://linked.data.gov.au/def/geox> ;
+  owl:imports <https://linked.data.gov.au/def/geox> ;
   owl:imports <http://purl.org/dc/elements/1.1/> ;
   owl:imports <http://resource.geosciml.org/ontology/timescale/gts> ;
   owl:imports <http://www.opengis.net/ont/geosparql> ;
