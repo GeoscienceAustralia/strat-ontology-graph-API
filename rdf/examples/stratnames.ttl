@@ -2,7 +2,7 @@
 # imports: http://pid.geoscience.gov.au/def/stratname
 # prefix: stratnames
 
-@prefix data: <http://linked.data.gov.au/def/datatype/> .
+@prefix data: <https://linked.data.gov.au/def/datatype/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix lith: <http://pid.geoscience.gov.au/def/stratname/lithology/> .
