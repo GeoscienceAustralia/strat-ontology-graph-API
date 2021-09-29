@@ -115,8 +115,8 @@ paths:
           example: 1000
           in: query
           schema:
-            type: number
-            format: integer
+            type: integer
+            format: int32
             default: 1000
         - description: Skip number of locations before returning count.
           required: false
@@ -124,8 +124,8 @@ paths:
           example: 0
           in: query
           schema:
-            type: number
-            format: integer
+            type: integer
+            format: int32
             default: 0
       security: []
       tags:
@@ -169,8 +169,8 @@ paths:
           example: 1000
           in: query
           schema:
-            type: number
-            format: integer
+            type: integer
+            format: int32
             default: 1000
         - description: Skip number of locations before returning count.
           required: false
@@ -178,8 +178,8 @@ paths:
           example: 0
           in: query
           schema:
-            type: number
-            format: integer
+            type: integer
+            format: int32
             default: 0
       security: []
       tags:
