@@ -9,12 +9,12 @@ Includes ontology, graph database, API.
 
 1. Bring up the GraphDB instance
 ```
-$ ./startup-graphdb.sh --local-build
+./startup-graphdb.sh --local-build
 ```
 
 2. Bring up the GDS
 ```
-$ docker-compose -f docker-compose.gds.yml up -d --build
+docker-compose -f docker-compose.gds.yml up -d --build
 ```
 
 3. Bring up the REST API and Explorer app
@@ -32,18 +32,18 @@ work.
 Then run the following to bring up the REST API and explorer app.
 
 ```
-$ docker-compose -f docker-compose.api.yml up -d --build
+docker-compose -f docker-compose.api.yml up -d --build
 ```
 
 Test the deployment using
 ```
-$ ./check-deployment.sh
+./check-deployment.sh
 ```
 
 ### Bring down the infrastructure
 
 ```
-$ docker-compose -f docker-compose.api.yml -f docker-compose.gds.yml -f docker-compose.yml down -v
+docker-compose -f docker-compose.api.yml -f docker-compose.gds.yml -f docker-compose.yml down -v
 
 ```
 
@@ -57,7 +57,7 @@ $ docker-compose -f docker-compose.api.yml -f docker-compose.gds.yml -f docker-c
 
 Add your RDF files in `strat_graph_data`. This will then be loaded into the GraphDB instance
 ```
-$ ./startup-graphdb.sh --local-build
+./startup-graphdb.sh --local-build
 ```
 
 The GraphDB will be available at http://localhost:7200. If you would like to change the port,
@@ -68,7 +68,7 @@ edit `.env` and the `PORT` environment variable.
 You can run graphdb in remote build mode, which means running the download-data.sh script to populate
 the data directory to load into graphDB at build time. By default it downloads the Pizza OWL ontology.
 ```
-$ ./startup.sh --remote-build
+./startup.sh --remote-build
 ```
 
 To specify your own download-data.sh script, you can map that into the docker container. 
@@ -84,7 +84,7 @@ Edit the docker-compose.yml file to add that in like so (last line in the exampl
 ## Geometry Data Service
 
 ```
-$ docker-compose -f docker-compose.gds.yml up -d --build
+docker-compose -f docker-compose.gds.yml up -d --build
 ```
 
 Add your spatial layers in `/gds/load_spatial_data/` or 
@@ -95,7 +95,7 @@ The current GDS is configured to load the Strat Relations Geojson dataset.
 
 To bring down the GDS, run the following:
 ```
-$ docker-compose -f docker-compose.gds.yml down -v 
+docker-compose -f docker-compose.gds.yml down -v 
 ```
 
 ### Environment variables
@@ -118,7 +118,7 @@ or specify those values in .env
 
 Bring up the REST API
 ```
-$ docker-compose -f docker-compose.api.yml up -d --build
+docker-compose -f docker-compose.api.yml up -d --build
 ```
 
 Configure `.env` to bind the GEOM_DATA_SVC_ENDPOINT variable to the 
